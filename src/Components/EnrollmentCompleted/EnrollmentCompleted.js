@@ -47,6 +47,7 @@ export default function EnrollmentCompleted() {
                     <div className="main-section-font-color main-intro-heading">
                         <h3>Your confirmation number for this enrollment is:</h3>
                     </div>
+                    
                     <br /><br /><br /> 
                     <div className="main-section-font-color main-intro-heading">
                         <h2 className="main-section-font-colo">Application information</h2>
