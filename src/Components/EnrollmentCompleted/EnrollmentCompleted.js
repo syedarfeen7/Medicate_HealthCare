@@ -4,6 +4,7 @@ import '../../Styles/GenearlizeStyle/style.css'
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
+
 export default function EnrollmentCompleted() {
     const applicantSignature = useSelector(state => state.applicant_signature)
     const [date, setDate] = useState('')
