@@ -1,0 +1,68 @@
+.logo-wrapper{
+    width: 100%;
+    margin-top: 1rem;
+}
+.side-bar-main-heading {
+    font-family: 'Open Sans' sans-serif;
+    font-weight: 600;
+    font-size: 26px;
+    padding: 1.5rem;
+}
+
+.side-bar-menu {
+    line-height: 3rem;
+    padding: 1.5rem 1.5rem 1.5rem 3rem;
+}
+
+.side-bar-menu h3 {
+    font-family: "Open sans" sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    position: relative;
+    cursor: pointer;
+}
+.side-bar-bottom-text{
+    padding: 1rem;
+    line-height: 1.8rem;
+    margin-top: 10rem;
+}
+.side-bar-bottom-text p{
+    font-family: "Open Sans" sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.side-bar-menu h3.active {
+    color: var(--bg-sky);
+}
+
+.side-bar-menu h3.active::before {
+    position: absolute;
+    display: block;
+    content: "";
+    background-color: var(--bg-sky);
+    width: 10px;
+    height: 2px;
+    top: 50%;
+    left: -18px;
+}
+.side-bar-grid{
+    display: none;
+}
+.close-btn-wrapper{
+    float: right;
+    margin-top: 2rem;
+    margin-right: 1rem;
+}
+.close-btn{
+    font-size: 3rem !important;
+    cursor: pointer !important;
+}
+.close-btn:hover{
+    color: #06CEC0;
+}
+@media only screen and (max-width: 959px) {
+    .side-bar-grid{
+        display: block;
+    }
+}

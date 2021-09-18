@@ -1,0 +1,123 @@
+.main-wrapper {
+    padding: 2.5rem;
+    margin: 2rem auto 0rem auto;
+    border-radius: 20px;
+    width: 80%;
+}
+
+/* MAIN SECTION H1 HEADING STYLING  */
+
+.main-intro-heading H1 {
+    font-weight: 600 !important;
+    font-family: 'Open Sans', sans-serif;
+    margin-top: 1rem;
+    font-size: 40px;
+}
+
+/* MAIN SECTION ON HOME PAGE H3 HEADING STYLING */
+
+.main-intro-heading H3 {
+    font-weight: 600 !important;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+    margin-top: 2rem;
+}
+
+/* MAIN SECTION ON HOME PAGE CONTACT DETAILS STYLING */
+
+.contact-details {
+    line-height: 25px;
+    margin-top: 2rem;
+}
+
+/* MAIN SECTION ON HOME PAGE ENROLLMENT BUTTON STYLING */
+
+.enrollment-btn {
+    margin-top: 2rem;
+    padding: 10px 40px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    font-family: 'Open Sans', sans-serif;
+    border: 0px;
+    cursor: pointer;
+    transition: 0.7s ease all;
+}
+
+/* ENROLLMENT BUTTON HOVER STYLING */
+
+.enrollment-btn:hover {
+    background-color: #06CEC0;
+}
+
+/* HEALTH DISCLAIMER SECTION STYLING STARTTS HERE */
+
+.health-discalimer-wrapper {
+    width: 80%;
+    margin: 5rem auto 0rem auto;
+    border-radius: 20px;
+    padding-bottom: 2rem;
+}
+
+.health-discalimer-heading-wrapper {
+    margin-top: 1rem 2rem;
+}
+
+.health-disalimer-heading {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 40px;
+    font-weight: 600;
+}
+
+.health-disclaimer-details-wrapper {
+    padding: 2rem;
+    border-radius: 20px;
+    margin-top: 1.5rem;
+    transition: 0.7s ease all !important;
+}
+
+.health-disclaimer-details-p {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.read-more {
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.hide {
+    display: none;
+}
+
+/* MEDIA QUERY STARTING FROM HERE */
+
+@media only screen and (max-width: 768px) {
+    .main-intro-heading h1 {
+        font-size: 25px;
+    }
+    .health-disalimer-heading {
+        font-size: 30px;
+    }
+    .main-intro-heading h3 {
+        font-size: 16px;
+    }
+    .enrollment-btn {
+        font-size: 0.9rem;
+    }
+}
+
+@media only screen and (max-width: 490px) {
+    .health-disclaimer-details-p {
+        font-size: 16px;
+    }
+    .health-discalimer-wrapper, .main-wrapper {
+        width: 92%;
+    }
+    .health-disclaimer-details-wrapper {
+        padding: 1.5rem;
+    }
+    .main-wrapper {
+        padding: 1.5rem;
+    }
+}

@@ -1,0 +1,45 @@
+* {
+    /* border: 1px solid yellow; */
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.edit-image-icon-wrapper img {
+    width: 25px;
+    height: 25.01px;
+    cursor: pointer;
+}
+
+.form-wrapper .details span {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    color: #283C3C;
+}
+
+.form-wrapper .details {
+
+    margin-bottom: 1.5rem;
+}
+
+.info-correct-btn-wrapper {
+    margin-top: 2rem;
+    position: relative;
+
+}
+
+.info-correct-btn-wrapper button {
+    position: absolute;
+    right: 0;
+}
+
+.applicantReview {
+    margin-top: 2rem;
+}
+.info-correct-btn-wrapper button{
+    font-family: "Open Sans", sans-serif;
+}

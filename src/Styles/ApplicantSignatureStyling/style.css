@@ -1,0 +1,27 @@
+.agreement h3{
+    font-family: "Open Sans", sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+}
+.agreement p{
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+}
+.signature-wrapper{
+    display: flex;
+    justify-content: flex-end;
+    margin: 0;
+    padding: 0;
+}
+.signature-wrapper .MuiOutlinedInput-root{
+        background-color: #fff;
+}
+.signature-wrapper .field-wrapper{
+    width: 100%;
+}
+.authorizedText{
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+}

@@ -1,0 +1,144 @@
+/* *{
+    border: 1px solid red;
+} */
+
+.enrollment-period-radio {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+.labl {
+    flex: 0 1 17rem;
+    margin: 0.5rem;
+}
+.labl>input {
+    /* HIDE RADIO */
+    visibility: hidden;
+    /* Makes input not-clickable */
+    position: absolute;
+    /* Remove input from document flow */
+}
+
+.labl>input+div {
+    /* DIV STYLES */
+    height: 100%;
+    cursor: pointer;
+    border: 2px solid #e5e5e5;
+    border-radius: 20px;
+    background-color: #ffff;
+}
+
+.labl>input+div p {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    padding: 1rem;
+}
+
+.labl>input:checked+div {
+    /* (RADIO CHECKED) DIV STYLES */
+    border: 2px solid #06CEC0;
+}
+
+.radio-option-text {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.select-enrollemnt-period-text {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    margin-left: 1rem;
+    /* margin-bottom: 1rem; */
+}
+
+.learnMore {
+    color: #29ABE2;
+}
+
+.other-option-text {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    margin-top: 2rem;
+}
+
+.radioOptions {
+    margin-bottom: 1rem;
+}
+
+.radioOptions .MuiTypography-body1 {
+    font-family: "Open Sans", sans-serif;
+    color: #283C3C;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.date-purpose-text {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    margin-left: 1.5rem;
+}
+
+.date-purpose-text p {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #283C3C;
+}
+
+.date-picker-grid {
+    padding-left: 2rem;
+}
+
+.error-on-eligibility-question-page {
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+}
+
+.accordion {
+    border-radius: 20px !important;
+    padding: 1.5rem;
+    margin: 1rem 0rem;
+    box-shadow: none !important;
+}
+
+.accordion h3 {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 600 !important;
+    font-size: 20px;
+}
+
+.accordionText {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+}
+.paymentNotice p{
+    margin-bottom: 1rem;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+}
+.paymentNotice:first-child{
+    cursor: pointer;
+}
+.MuiAccordion-root::before {
+    display: none;
+}
+
+@media screen and (min-width: 1700px) {
+    .labl {
+        flex: 0 1 20rem;
+        margin: 0.5rem;
+    }
+}
+@media only screen and (max-width: 703px) {
+    .labl {
+        flex: 0 1 30rem;
+    }
+}

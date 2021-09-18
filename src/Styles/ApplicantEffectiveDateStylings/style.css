@@ -1,0 +1,42 @@
+.applicant-effective-date-radio {
+    display: flex !important;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+}
+
+.labl {
+    flex: 0 1 17rem;
+    margin: 0.5rem;
+}
+
+.labl>input {
+    /* HIDE RADIO */
+    visibility: hidden;
+    /* Makes input not-clickable */
+    position: absolute;
+    /* Remove input from document flow */
+}
+
+.labl>input+div {
+    /* DIV STYLES */
+    height: 100%;
+    cursor: pointer;
+    border: 2px solid #e5e5e5;
+    border-radius: 20px;
+    background-color: #ffff;
+}
+
+.labl>input+div p {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    padding: 1rem;
+}
+
+.labl>input:checked+div {
+    /* (RADIO CHECKED) DIV STYLES */
+    border: 2px solid #06CEC0;
+}
+#appliantEffectiveDate{
+    margin-left: 1.2rem;
+}
