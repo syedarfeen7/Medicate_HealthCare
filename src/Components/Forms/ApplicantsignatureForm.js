@@ -1,5 +1,5 @@
 import { Grid } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import '../../Styles/GenearlizeStyle/style.css';
 import '../../Styles/EligibilityQuestionsStyling/style.css';
@@ -20,6 +20,7 @@ import {
     Dialog
 } from "@material-ui/core";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -28,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function ApplicantSignatureForm() {
     const classes = useStyles();
+    const history = useHistory()
     const [appplicantSignatureMMethod, setApplicantSignatureMethod] = useState('');
     const [signature, setSignature] = useState('');
     const [firstName, setFirstName] = useState('');
@@ -38,13 +40,17 @@ export default function ApplicantSignatureForm() {
     const [city, setCity] = useState('');
     const [zipCode, setZipCode] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
+    const [acknowledge, setAcknowledge] = useState('')
+    const [submissionTime, setsubmissionTime] = useState(new Date())
+    const dispatch = useDispatch()
     const saveApplicantSignature = async (e) => {
         e.preventDefault()
-        let data = { appplicantSignatureMMethod, firstName, secondName, relationshipToEnrolle, street, state, city, zipCode, phoneNumber, signature }
+        let data = { appplicantSignatureMMethod, firstName, secondName, submissionTime, relationshipToEnrolle, street, state, city, zipCode, phoneNumber, acknowledge, signature }
 
         await applicantSignatureScheema.strict().validate(data).then(res => {
             console.log(res)
-            ApplicantSignature(res)
+            dispatch(ApplicantSignature(res))
+            history.push("/enrollment-completed")
         })
             .catch(err => {
                 console.log(err)
@@ -227,8 +233,8 @@ export default function ApplicantSignatureForm() {
                     </form>
                     <Grid xs={12} item>
                         <div className="checkBox-wrapper">
-
-                            <input type="checkbox" className="custom-checkbox" />
+                            <div id="acknowledge" className="red-text error-msg"></div>
+                            <input type="checkbox" className="custom-checkbox" onChange={(e) => {setAcknowledge(e.target.value)}}/>
                             <label className="main-section-font-color">I acknowledge that I have read the disclosures and confirm that all the nformation in this enrollment application is accurate</label>
 
                         </div>

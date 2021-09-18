@@ -26,8 +26,10 @@ export default function Header() {
     const pathLocation = useLocation()
     console.log(pathLocation.pathname)
     const [homePage, setHomePage] = useState(false)
+    const [enrollmentCompletedPage, setEnrollmentCompletedPage] = useState(false)
     useEffect(() => {
         setHomePage(pathLocation.pathname === "/")
+        setEnrollmentCompletedPage(pathLocation.pathname === "/enrollment-completed")
     }, [])
     return (
         <div className={classes.root}>
@@ -41,9 +43,9 @@ export default function Header() {
                 </Grid>
 
                 <Grid container className="light-gray-bg-color">
-                    {homePage ?
+                    {enrollmentCompletedPage || homePage?
                         <>
-                            <Grid item lg={5} md={12} xs={12}>
+                            <Grid item lg={12} md={12} xs={12}>
                                 <div className="logo-wrapper">
                                     <img src="images/LogoVirtualMedicare.png" className="logo-image" alt="logo" />
                                 </div>
@@ -51,33 +53,48 @@ export default function Header() {
                         </>
                         :
                         <>
-                            <Grid item xs={1} className="toggle-btn"  >
-                                <div className="toggle-btn">
-                                    <MenuIcon className="main-section-font-color menuIcon" onClick={showSideBar} />
-                                </div>
-                            </Grid>
-                            <Grid item xs={11} className="logo-lg-screen">
+                            {homePage ?
+                                <>
+                                    <Grid item lg={5} md={12} xs={12}>
+                                        <div className="logo-wrapper">
+                                            <img src="images/LogoVirtualMedicare.png" className="logo-image" alt="logo" />
+                                        </div>
+                                    </Grid>
+                                </>
+                                :
+                                <>
+                                    <Grid item xs={1} className="toggle-btn"  >
+                                        <div className="toggle-btn">
+                                            <MenuIcon className="main-section-font-color menuIcon" onClick={showSideBar} />
+                                        </div>
+                                    </Grid>
+                                    <Grid item xs={11} className="logo-lg-screen">
+                                        <div className="logo-wrapper">
+                                            <img src="images/LogoVirtualMedicare.png" className="logo-image" alt="logo" />
+                                        </div>
+                                    </Grid>
+                                </>
+                            }
+                            <Grid item lg={2} md={12} xs={11}>
                                 <div className="logo-wrapper">
-                                    <img src="images/LogoVirtualMedicare.png" className="logo-image" alt="logo" />
+                                    <img src="images/Logo-Healthcare.png" className="united-health-care-image" alt="logo" />
                                 </div>
                             </Grid>
+                            <Grid item lg={2} md={4} xs={6}>
+                                <div>
+                                    <p className="monthly-premium font-blue">$0 Monthly premium</p>
+                                </div>
+                            </Grid>
+                            <Grid item lg={3} md={4} xs={6}>
+                                <div>
+                                    <p className="choice-plan-2 font-blue">AARP Medicare advantage choice Plan 2 (PPO)</p>
+                                </div>
+                            </Grid>
+
                         </>
+
                     }
-                    <Grid item lg={2} md={12} xs={11}>
-                        <div className="logo-wrapper">
-                            <img src="images/Logo-Healthcare.png" className="united-health-care-image" alt="logo" />
-                        </div>
-                    </Grid>
-                    <Grid item lg={2} md={4} xs={6}>
-                        <div>
-                            <p className="monthly-premium font-blue">$0 Monthly premium</p>
-                        </div>
-                    </Grid>
-                    <Grid item lg={3} md={4} xs={6}>
-                        <div>
-                            <p className="choice-plan-2 font-blue">AARP Medicare advantage choice Plan 2 (PPO)</p>
-                        </div>
-                    </Grid>
+
                 </Grid>
             </Grid>
         </div>

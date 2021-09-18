@@ -8,6 +8,7 @@ import EligibilityQuestionsPage from './Pages/EligibilityQuestionsPage'
 import ApplicantReviewPage from './Pages/ApplicantReviewPage';
 import ApplicantEfectiveDatePage from './Pages/ApplicantEffectiveDatePage';
 import ApplicantSignaturePage from './Pages/ApplicantsignaturePage';
+import EnrollmentCompletedPage from './Pages/EnrollmentCompletedPage';
 function App() {
   return <>
     <BrowserRouter>
@@ -43,6 +44,10 @@ function App() {
 
         <Route path="/applicant-signature">
           <ApplicantSignaturePage />
+        </Route>
+
+        <Route path="/enrollment-completed">
+          <EnrollmentCompletedPage/>
         </Route>
       </Switch>
     </BrowserRouter>

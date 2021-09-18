@@ -46,8 +46,9 @@ export const ApplicantEffectiveDate = (data) => {
 
 // APPLICANT SIGNATURE ACTION
 export const ApplicantSignature = (data) => {
+    console.log(data)
     return{
-        type: ApplicantSignature,
+        type: applicantSignature,
         data: data
     }
 }

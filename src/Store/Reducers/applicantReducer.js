@@ -32,6 +32,7 @@ export default function ApplicantReducer(state = initialState, action) {
             return { ...state, applicant_effective_date: action.data }
         case applicantSignature:
             return { ...state, applicant_signature: action.data }
+            console.log(action.data)
         case "delete":
             return { ...state, eligibility_questions_details: "" }
         default:

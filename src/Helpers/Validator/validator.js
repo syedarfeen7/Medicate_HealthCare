@@ -91,4 +91,5 @@ export const applicantSignatureScheema = yup.object().shape({
   city: yup.string().required("Please enter city"),
   zipCode: yup.string().required("Please enter zip code"),
   phoneNumber: yup.string(),
+  acknowledge: yup.string().required("Please accept agreement ")
 })
