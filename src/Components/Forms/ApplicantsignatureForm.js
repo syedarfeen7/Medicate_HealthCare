@@ -43,12 +43,17 @@ export default function ApplicantSignatureForm() {
     const [acknowledge, setAcknowledge] = useState('')
     const [submissionTime, setsubmissionTime] = useState(new Date())
     const dispatch = useDispatch()
+    
+    //  FUNCTION TO SAVE THE APPLICANT SIGNATURE DETAILS
     const saveApplicantSignature = async (e) => {
         e.preventDefault()
         let data = { appplicantSignatureMMethod, firstName, secondName, submissionTime, relationshipToEnrolle, street, state, city, zipCode, phoneNumber, acknowledge, signature }
 
+        // VALIDATION USING YUP
         await applicantSignatureScheema.strict().validate(data).then(res => {
             console.log(res)
+
+            // AFTER VALIDATE WE DIPATCHED THE DATA TO REDUX STORE
             dispatch(ApplicantSignature(res))
             history.push("/enrollment-completed")
         })
@@ -134,7 +139,7 @@ export default function ApplicantSignatureForm() {
                                                         <FormLabel className="main-section-font-color label">Relationship to enrollee *</FormLabel>
 
                                                         <TextField value={relationshipToEnrolle} className="custom-text-box" placeholder="Enter your relationship to enrollee" variant="outlined" onChange={(e) => { setRelationshiptoEnrolle(e.target.value) }} />
-                                                        <div id="relationshipToEnrollee" className="red-text error-msg"></div>
+                                                        <div id="relationshipToEnrolle" className="red-text error-msg"></div>
                                                     </FormControl>
                                                 </Grid>
                                                 <Grid lg={6} sm={6} xs={12} item className="hide-grid-city"></Grid>
@@ -234,7 +239,7 @@ export default function ApplicantSignatureForm() {
                     <Grid xs={12} item>
                         <div className="checkBox-wrapper">
                             <div id="acknowledge" className="red-text error-msg"></div>
-                            <input type="checkbox" className="custom-checkbox" onChange={(e) => {setAcknowledge(e.target.value)}}/>
+                            <input type="checkbox" className="custom-checkbox" onChange={(e) => { setAcknowledge(e.target.value) }} />
                             <label className="main-section-font-color">I acknowledge that I have read the disclosures and confirm that all the nformation in this enrollment application is accurate</label>
 
                         </div>

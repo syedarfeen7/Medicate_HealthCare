@@ -13,7 +13,11 @@ const useStyles = makeStyles((theme) => ({
 export default function EligibilityQuestionsReviewForm() {
     const classes = useStyles();
     const [date, setDate] = useState('')
+
+    // FETCHINF THE ELIGIBILITY QUESTION DETAILS  FROM REDUX STORE
     const eligibilityQuestions = useSelector(state => state.eligibility_questions_details)
+    
+    // CREATED ARRAY FOR CHECKING THE DATE FROM THAT WHICH DATE USER SELECTED
     const dateArray = {
         "dateOfYouEstablishedResidencyOne": eligibilityQuestions.dateOfYouEstablishedResidencyOne,
         "medicarePartBEffectiveDate": eligibilityQuestions.medicarePartBEffectiveDate,
@@ -27,6 +31,8 @@ export default function EligibilityQuestionsReviewForm() {
         "endDateOfPreviousCoverageFive": eligibilityQuestions.endDateOfPreviousCoverageFive,
         "dateOfYouEstablishedResidencyThree": eligibilityQuestions.dateOfYouEstablishedResidencyThree
     }
+
+    // NOW SETTINF THE DATE THAT CONATINS DATE
     const settingDate = () => {
         for (const key in dateArray) {
             if (dateArray[key] != null) {

@@ -12,6 +12,8 @@ const useStyles = makeStyles((theme) => ({
     },
 
 }));
+
+//  FUNCTION TO SHOW THE SIDE BAR OR CLOSE THE SIDE BAR IN RESPOSIVE VIEW
 const showSideBar = () => {
     console.log("sidebar opened");
     let sidebar = document.getElementById("sidebar");
@@ -24,10 +26,12 @@ const showSideBar = () => {
 export default function Header() {
     const classes = useStyles();
     const pathLocation = useLocation()
-    console.log(pathLocation.pathname)
+
     const [homePage, setHomePage] = useState(false)
     const [enrollmentCompletedPage, setEnrollmentCompletedPage] = useState(false)
     useEffect(() => {
+
+        // GETTING THE CURRENT PAGE ADDRESS
         setHomePage(pathLocation.pathname === "/")
         setEnrollmentCompletedPage(pathLocation.pathname === "/enrollment-completed")
     }, [])
@@ -43,7 +47,9 @@ export default function Header() {
                 </Grid>
 
                 <Grid container className="light-gray-bg-color">
-                    {enrollmentCompletedPage || homePage?
+
+                    {/* TERNINARY OPERTAOR TO CHECK THE CURRENT PATH LOCATION */}
+                    {enrollmentCompletedPage || homePage ?
                         <>
                             <Grid item lg={12} md={12} xs={12}>
                                 <div className="logo-wrapper">
@@ -53,6 +59,7 @@ export default function Header() {
                         </>
                         :
                         <>
+                            {/* IN CASE THE PATH WAS NOT COLPLETED OR HOME PAGE THEN THIS SECTION WILL WORK */}
                             {homePage ?
                                 <>
                                     <Grid item lg={5} md={12} xs={12}>

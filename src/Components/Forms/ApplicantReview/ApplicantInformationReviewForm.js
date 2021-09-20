@@ -13,7 +13,10 @@ const useStyles = makeStyles((theme) => ({
 export default function ApplicantInformationReviewForm() {
     const classes = useStyles();
     const [date, setDate] = useState(null)
+    
+    //  FETCHING THE DATA FROM REDUX STORE
     const applicantInformtion = useSelector(state => state.applicant_information_details)
+
     useEffect(() => {
         if (typeof applicantInformtion.dateOfBirth === "object") {
             setDate(applicantInformtion.dateOfBirth.getFullYear() + "-" + parseInt(applicantInformtion.dateOfBirth.getMonth() + 1) + "-" + applicantInformtion.dateOfBirth.getDate())
@@ -23,7 +26,7 @@ export default function ApplicantInformationReviewForm() {
             setDate(applicantInformtion.dateOfBirth.slice(0, 10))
         }
     }, [])
-    console.log("State=====>", applicantInformtion)
+
     return <>
         <div className="light-gray-bg-color">
             <Grid container>

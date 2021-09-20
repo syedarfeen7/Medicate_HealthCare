@@ -34,6 +34,8 @@ export default function MedicareInformationForm() {
             updateMedicareInformation()
         }
     }, [])
+
+    // FUNCTION TO UPDATE THE MEDICARE INFORMATION
     const updateMedicareInformation = () => {
         setMedicareNumber(editableMedicareInformation.mi.medicareNumber)
         setMedicarePartAStartDate(editableMedicareInformation.mi.medicarePartAStartDate)
@@ -47,12 +49,14 @@ export default function MedicareInformationForm() {
         // HERE WE ARE VALIDATING THE MEDICARE INFORMATION
         await medicareInformationScheema.strict().validate(data).then(res => {
             console.log("Response====>", res)
+         
             // AFTER SUCCESS WE DSIPATCHED IT TO STORE
             dispatch(MedicareInformation(data))
             history.push('/eligibility-questions')
         })
             .catch((err) => {
                 console.log("Error====>", { err })
+                // HERE WE ARE ADDING ERRORS BELOW THE REQUIRED FIELDS
                 document.querySelectorAll(".error-msg").forEach((i) => { i.innerHTML = "" })
                 if(document.querySelector(`#${err.path}`))
                     document.querySelector(`#${err.path}`).innerHTML = err.message

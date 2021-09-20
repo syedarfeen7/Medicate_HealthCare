@@ -1,5 +1,4 @@
 import * as yup from 'yup';
-import { string } from 'yup/lib/locale';
 
 // SCHEEMA TO VALIDATE THE APPLICANT INFORMATION
 export const applicantInformationSheema = yup.object().shape({

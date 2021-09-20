@@ -13,17 +13,24 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
     },
 }));
+
 export default function ApplicantEffectiveDateForm() {
     const classes = useStyles();
     const [appliantEffectiveDate, setApplicantEffectiveDate] = useState('')
     const dispatch = useDispatch()
     const history = useHistory()
+
+    // FUNCTION TO SAVE THE APPLICANT EFFECTIVE DATE
     const saveApplicantEffectiveDate = async (e) => {
         e.preventDefault();
         let data = { appliantEffectiveDate }
         console.log(data)
+
+        // VALIDATION USING YUP
         await applicantEffectiveDateScheema.strict().validate(data).then(res => {
             console.log(res)
+
+            // DISPATCH THE DATA TO REDUX STORE
             dispatch(ApplicantEffectiveDate(res))
             history.push("/applicant-signature")
         })

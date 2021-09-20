@@ -30,7 +30,7 @@ export default function ApplicantInformationForm(props) {
     const dispatch = useDispatch();
     const [open, setOpen] = useState(true);
     const classes = useStyles();
-    const [dateOfBirth, setDateOfBirth] = useState(new Date());
+    const [dateOfBirth, setDateOfBirth] = useState(null);
     const [firstName, setFirstName] = useState('');
     const [middleName, setMiddleName] = useState('');
     const [secondName, setSecondName] = useState('');
@@ -48,6 +48,8 @@ export default function ApplicantInformationForm(props) {
             updateApplicantInformation()
         }
     }, [])
+
+    // FUNCTION TO SET THE VALUE FOR UPDATE PURPOSE
     const updateApplicantInformation = () => {
         setFirstName(editableApplicationInformation.ap.firstName)
         setMiddleName(editableApplicationInformation.ap.middleName)
@@ -63,9 +65,10 @@ export default function ApplicantInformationForm(props) {
         e.preventDefault();
         let data = { firstName, middleName, secondName, sex, title, dateOfBirth }
 
-        // HERE WE ARE VALIDATING THE APPLICANT INFORMATION
+        // HERE WE ARE VALIDATING THE APPLICANT INFORMATION USING YUP
         await applicantInformationSheema.strict().validate(data).then(res => {
             console.log("Response====>", res)
+
             // AFTER SUCCESS WE DSIPATCHED IT TO STORE
             dispatch(ApplicantInformation(res))
             history.push('/contact-information')

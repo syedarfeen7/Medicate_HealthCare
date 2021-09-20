@@ -7,14 +7,33 @@ import { useState, useEffect } from "react";
 
 export default function EnrollmentCompleted() {
     const applicantSignature = useSelector(state => state.applicant_signature)
-    const [date, setDate] = useState('')
+    const [date, setDate] = useState(null)
+    const [time, setTime] = useState('')
     useEffect(() => {
+        // formatAMPM(applicantSignature.submissionTime)
         dateSetting()
     }, [])
+    console.log(applicantSignature.submissionTime)
+    const formatAMPM = (date) => {
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+        let seconds = date.getSeconds()
+        const ampm = hours >= 12 ? 'pm' : 'am';
+
+        hours %= 12;
+        hours = hours || 12;
+        minutes = minutes < 10 ? `0${minutes}` : minutes;
+
+        const strTime = `${hours}:${minutes}:${seconds} ${ampm}`;
+
+        setTime(strTime)
+    };
+
+
     const dateSetting = () => {
 
         if (typeof applicantSignature.submissionTime === "object") {
-            setDate(applicantSignature.submissionTime)
+            setDate(applicantSignature.submissionTime.getMonth() + "/" + applicantSignature.submissionTime.getDate() + "/" + applicantSignature.submissionTime.getFullYear())
         }
         if (typeof applicantSignature.submissionTime === "string") {
             setDate(applicantSignature.submissionTime)
@@ -48,16 +67,16 @@ export default function EnrollmentCompleted() {
                     <div className="main-section-font-color main-intro-heading">
                         <h3>Your confirmation number for this enrollment is:</h3>
                     </div>
-                    
-                    <br /><br /><br /> 
+
+                    <br /><br /><br />
                     <div className="main-section-font-color main-intro-heading">
                         <h2 className="main-section-font-colo">Application information</h2>
                     </div>
                     <div className="contact-details main-section-font-color">
-                        <p >Signature Submission Time: {applicantSignature.submissionTime}</p>
+                        <p >Signature Submission Time: {date}</p>
                         <p>Signature Individual Name: {applicantSignature.signature}</p>
-                        
-                    </div> 
+
+                    </div>
                     <Link to="/">
                         <input type="button" value="Home page" className="enrollment-btn btn-radius font-white btn-bg-color" />
                     </Link>

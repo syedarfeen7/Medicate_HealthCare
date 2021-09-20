@@ -87,15 +87,15 @@ export default function EligibilityQuestionsForm() {
     const history = useHistory();
     const location = useLocation()
     const editableEligibilityQuestions = location.state
-    console.log(editableEligibilityQuestions)
-    console.log(medicarePartBEffectiveDate)
+
     useEffect(() => {
         if (editableEligibilityQuestions) {
             updateEligibilityQuestions()
         }
     }, [])
 
-    const dateRemover= () =>{
+    //  FUNCTION TO REMOVE THE DATE AFTER USER SELECTED ONDE DATE IN CASE OF UPDATE FUNCTIONALITY
+    const dateRemover = () => {
         setMedicarePartBEffectiveDate(null)
         setDateOfEstablishedResidencyOne(null)
         setEndDateOfPreviousCovergeOne(null)
@@ -109,6 +109,8 @@ export default function EligibilityQuestionsForm() {
         setDateOfCoverageYouAreLeaving(null)
         setDateOfYouEstablishedResidencyThree(null)
     }
+
+    // HERE WE ARE UPDTAING THE ELIGIBILITY QUESTIONS DETAILS
     const updateEligibilityQuestions = () => {
         setMedicareEnrollmentPeriod(editableEligibilityQuestions.eq.medicareEnrollmentPeriod)
         setVisibleOtherEnrollmentPeriod(editableEligibilityQuestions.eq.visibleOtherEnrollmentPeriod)
@@ -116,13 +118,12 @@ export default function EligibilityQuestionsForm() {
         const paymentMethod = editableEligibilityQuestions.eq.paymentOption
         const paymentDefaultOptions = ["Get a monthly bill", "Social Security Benefit Check Deduction (SSA)", "Railroad Retirement Board Benefit Check Deduction (RRB)"]
         const defaultOptions = ["Annual enrollment period (October 15-December7)", "I am new to Medicare", "I сurrently рave a low income subsidy or extra help", "I am leaving employer or union coverage.", "I recently moved outside of the service area for my current plan or I recently moved and this plan is a new option for me.", "I have Medicare and Medicaid", "I am enrolling in a 5-star Medicare Plan.", "I recently had a change in my Extra Help paying for Medicare prescription drug coverage (newly got Extra Help, had a change in the level of Extra Help, or lost Extra Help).", "I do not see an option listed for me"];
+        
+        // CONDITIONS TO CHECKED THE ARDIO BOX OF ENROLLMENT PERIOD
         if (defaultOptions.find(opt => opt == val) == undefined) {
 
             setVisibleOtherEnrollmentPeriod("I do not see an option listed for me");
             document.querySelector(`input[value='I do not see an option listed for me'] + div`).click()
-
-            // document.querySelector(`input[value='${val}'] }`).setAttribute("checked")
-            // console.log(document.querySelector(`input[value='${val}']`).click())
 
         }
         else {
@@ -163,6 +164,8 @@ export default function EligibilityQuestionsForm() {
         setCurrentPatient(editableEligibilityQuestions.eq.currentPatient)
         setPaymentOption(editableEligibilityQuestions.eq.paymentOption)
     }
+
+    // FUNCTION CLOSE THE DIALOG BOXES OF THIS PAGE
     const handleClose = (b) => {
         if (b === "paymentClose") {
             setOpenPaymentNotice(false);
@@ -178,6 +181,7 @@ export default function EligibilityQuestionsForm() {
         }
     };
 
+    //  FUNCTION TO CLOSE THE DIALOG BOXES OF THIS PAGE
     const handleClickOpen = (a) => {
         if (a === "openPaymentNotice")
             setOpenPaymentNotice(true);
@@ -226,21 +230,23 @@ export default function EligibilityQuestionsForm() {
 
     // FUNCTION TO SAVE THE ELIGIBILITY QUESTIONS AND DISPATCH IT TO STORE
     const saveEligibilityQuestion = async (e) => {
-        console.log(paymentOption)
-        console.log(medicareEnrollmentPeriod)
         e.preventDefault();
+        
         // const medicarePartBEffectiveDate = medicarePartBEffectiveDate.getDate() + "-" + medicarePartBEffectiveDate.getMonth() + "-" + medicarePartBEffectiveDate.getFullYear()
         let data = { medicareEnrollmentPeriod, medicarePartBEffectiveDate, dateOfYouEstablishedResidencyOne, endDateOfPreviousCoverageOne, dateOfYouEstablishedResidencyTwo, endDateOfPreviousCoverageTwo, medicareStartDate, dateReleasedFromIncarceration, endDateOfPreviousCoverageThree, endDateOfPreviousCoverageFour, endDateOfPreviousCoverageFive, DateOfCoverageYouAreLeaving, dateOfYouEstablishedResidencyThree, enrolledMedicardProgram, nursingHome, medicardNumber, nameOfFacility, phoneNumber, street, city, state, zipCode, healthInsurance, spouseWork, healthInsuranceTwo, perciptionDrugCoverage, primaryCarePhysicianFullName, primaryCarePhysicianIDNumber, primaryCarePhysicianPhoneNumber, currentPatient, paymentOption }
 
         // HERE WE ARE VALIDATING THE ELIGIBILITY QUESTION
         await eligibilityQuestionsScheema.strict().validate(data).then(res => {
             console.log("Response====>", res)
+            
             // AFTER SUCCESS WE DSIPATCHED IT TO STORE
             dispatch(EligibilityQuestions(data))
             history.push('/applicant-review')
         })
             .catch((err) => {
                 console.log("Error====>", { err })
+
+                // HERE WE ARE ADDING ERRORS BELOW FIELDS
                 document.querySelectorAll(".error-msg").forEach((i) => { i.innerHTML = "" })
                 if (document.querySelector(`#${err.path}`))
                     if (document.querySelector(`#${err.path}`) === "#medicareEnrollmentPeriod" || document.querySelector(`#${err.path}`) === "#medicardNumber") {
@@ -332,6 +338,8 @@ export default function EligibilityQuestionsForm() {
                                     </div>
                                 </label>
                             </div>
+
+                            {/* TERINANRY OPERATOR TO CHECK IF USER WANTS TO EXPLORE OTHER OPTION IN ENROLLMENT PERIOD */}
                             {visibleOtherEnrollmentPeriod ?
 
                                 <>
@@ -775,23 +783,9 @@ export default function EligibilityQuestionsForm() {
                                         </FormControl>
                                     </Grid>
 
-
-
-
-
-
-
-
-
                                 </>
-
                                 :
-
-                                <>
-
-
-
-                                </>}
+                                <></>}
                         </Grid>
 
                         <Grid container>
@@ -1058,6 +1052,8 @@ export default function EligibilityQuestionsForm() {
                 </div>
             </div>
         </div>
+
+        {/* DIALOG BOXES CONTENT OF THS PAGE */}
         <div>
 
             <Dialog onClose={() => { handleClose("closeInfo") }} className="pop-up-dialog" aria-labelledby="customized-dialog-title" open={openInfo}>
@@ -1071,6 +1067,8 @@ export default function EligibilityQuestionsForm() {
                 </DialogContent>
             </Dialog>
         </div>
+
+        {/* DIALOG BOXES CONTENT OF THS PAGE */}
         <div>
 
             <Dialog onClose={() => { handleClose("paymentClose") }} className="pop-up-dialog openPaymentNotice" aria-labelledby="customized-dialog-title" open={openPaymentNotice}>
@@ -1084,6 +1082,8 @@ export default function EligibilityQuestionsForm() {
                 </DialogContent>
             </Dialog>
         </div>
+
+        {/* DIALOG BOXES CONTENT OF THS PAGE */}
         <div>
 
             <Dialog onClose={() => { handleClose('closeSSA') }} className="pop-up-dialog" aria-labelledby="customized-dialog-title" open={openSSA}>
@@ -1098,9 +1098,10 @@ export default function EligibilityQuestionsForm() {
                 </DialogContent>
             </Dialog>
         </div>
+        
+        {/* DIALOG BOXES CONTENT OF THS PAGE */}                                       
         <div>
-
-            <Dialog onClose={() => { handleClose('closeRRB') }} className="pop-up-dialog" aria-labelledby="customized-dialog-title" open={openRRb}>
+           <Dialog onClose={() => { handleClose('closeRRB') }} className="pop-up-dialog" aria-labelledby="customized-dialog-title" open={openRRb}>
                 <DialogTitle id="customized-dialog-title" onClose={() => { handleClose('closeRRB') }}>
                     <h3 className="main-section-font-color info-pop-up">You clicked on learn more about RRB</h3>
                 </DialogTitle>

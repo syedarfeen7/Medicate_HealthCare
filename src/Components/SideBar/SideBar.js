@@ -3,6 +3,8 @@ import '../../Styles/GenearlizeStyle/style.css';
 import '../../Styles/SideBarStyling/style.css';
 import Close from '@material-ui/icons/Close';
 import { Link } from "react-router-dom";
+
+// FUNCTION TO MAKE THE ACTIVE STATE OF CORRESPONDING PAGE
 const sidebarActiveLink =()=> {
     let x = document.querySelectorAll(".sidebar-link");
     if(x){
@@ -29,8 +31,7 @@ const closeSideBar = () => {
     u.add("close-sidebar");
     u.remove("show-sidebar");
  }
-//  const activeState = () => {
-//  }
+
  
     
 export default function SideBar() {

@@ -36,12 +36,14 @@ export default function ContactInformationForm() {
     const history = useHistory();
     const location = useLocation()
     const editableContactInformation = location.state
+
     useEffect(() => {
-        if(editableContactInformation && editableContactInformation){
+        if (editableContactInformation && editableContactInformation) {
             updateContactInformation()
         }
     }, [])
 
+    // FUNCTION TO SET THE VALUES FOR UPDATE PURPOSE
     const updateContactInformation = () => {
         setStreetOne(editableContactInformation.ci.streetOne)
         setCountryStateZipCode(editableContactInformation.ci.countryStateZipCode)
@@ -108,14 +110,16 @@ export default function ContactInformationForm() {
         await contactInfromationScheema.strict().validate(data).then(res => {
             console.log("Response====>", res)
             // AFTER SUCCESS WE DSIPATCHED IT TO STORE
-            dispatch(ContactInformation(data))
+            dispatch(ContactInformation(res))
             history.push('/medicare-information')
         }).catch((err) => {
-            console.log({err})
+            console.log({ err })
             console.log("Error====>", err.message)
+
+            // TO ADD THE ERROR MESSAGES BELOW FIELDS
             document.querySelectorAll(".error-msg").forEach((i) => { i.innerHTML = "" })
-            if(document.querySelector(`#${err.path}`))
-                 document.querySelector(`#${err.path}`).innerHTML = err.message
+            if (document.querySelector(`#${err.path}`))
+                document.querySelector(`#${err.path}`).innerHTML = err.message
             setErrorHnandling(err.message)
         })
     }
@@ -169,10 +173,10 @@ export default function ContactInformationForm() {
                             <Grid lg={6} sm={6} xs={12} item className="hide-grid-city"></Grid>
                             <Grid xs={12} item>
                                 <div className="checkBox-wrapper">
-                                   
-                                        <input checked={Checkbox} type="checkbox" className="custom-checkbox" onChange={(e) => { setCheckBox(e.target.checked) }} />
-                                        <label>I would like to provide a different mailing address</label>
-                                 
+
+                                    <input checked={Checkbox} type="checkbox" className="custom-checkbox" onChange={(e) => { setCheckBox(e.target.checked) }} />
+                                    <label>I would like to provide a different mailing address</label>
+
                                 </div>
                             </Grid>
                             <Grid item lg={6} sm={6} xs={12} item>
@@ -186,6 +190,8 @@ export default function ContactInformationForm() {
                                 <FormControl className="field-wrapper">
                                     <FormLabel className="main-section-font-color label">Email address</FormLabel>
                                     <TextField value={emailAddress} className="custom-text-box" placeholder="Enter email address" variant="outlined" onChange={(e) => { setEmailAddress(e.target.value) }} />
+                                    <div id="emailAddress" className="red-text error-msg"></div>
+
                                 </FormControl>
                             </Grid>
 
@@ -249,7 +255,7 @@ export default function ContactInformationForm() {
                         </div>
                         <div className="next-btn-wrapper">
                             <button type="submit" className="next-btn" onClick={saveContactDetails}><h2 className="next-btn-h2">Next</h2></button>
-                           
+
                         </div>
                     </div>
                 </div>
@@ -257,6 +263,7 @@ export default function ContactInformationForm() {
         </div>
         <div>
 
+            {/* LANGUAGE PREFERENCE DIALOG CONTENT  */}
             <Dialog onClose={handleClose} className="pop-up-dialog" aria-labelledby="customized-dialog-title" open={open}>
                 <DialogTitle id="customized-dialog-title" onClose={handleClose}>
                     <h3 className="main-section-font-color info-pop-up">You clicked on info button for language preference</h3>

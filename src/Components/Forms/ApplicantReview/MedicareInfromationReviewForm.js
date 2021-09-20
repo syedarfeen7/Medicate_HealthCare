@@ -11,6 +11,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function MedicareInformationReviewForm() {
     const classes = useStyles();
+
+    // FETCHING THE MEDICARE INFORMATION FROM REDUX STORE
     const medicareInformation = useSelector(state => state.medicare_information_details)
 
     return <>

@@ -34,7 +34,7 @@ export default function ApplicantReducer(state = initialState, action) {
             return { ...state, applicant_signature: action.data }
             console.log(action.data)
         case "delete":
-            return { ...state, eligibility_questions_details: "" }
+            return { ...state, eligibility_questions_details: "" , applicant_information_details: "", medicare_information_details: "", applicant_signature: "", applicant_effective_date: "", contact_information_details: ""}
         default:
             return { ...state }
     }

@@ -11,6 +11,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function ContactInformationReviewForm() {
     const classes = useStyles();
+    
+    // FETCHING THE CONTACT INFORMATION DATE FROM REDUX STORE
     const contactInformation = useSelector(state => state.contact_information_details)
     return <>
         <div className="light-gray-bg-color">
