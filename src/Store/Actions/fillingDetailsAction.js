@@ -12,6 +12,6 @@ export const CMSFillingDate = (date) => {
 export const CMSFillingNumber = (number) => {
     return{
         type: cmsFillingNumber,
-        date: number
+        number: number
     }
 }

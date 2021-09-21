@@ -10,8 +10,8 @@ const initialState = {
     eligibility_questions_details: [''],
     applicant_effective_date: [''],
     applicant_signature: [''],
-    cms_filling_date: '04-09-2021',
-    cms_filling_number: '123',
+    cms_filling_date: [''],
+    cms_filling_number: [''],
 }
 
 export default function ApplicantReducer(state = initialState, action) {
