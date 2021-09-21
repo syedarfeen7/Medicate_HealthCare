@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux';
 import { ContactInformation } from '../../Store/Actions/applicantAction';
 import { contactInfromationScheema, contactInformationMailingAddressScheema } from '../../Helpers/Validator/validator';
 import { Link, useHistory, useLocation } from 'react-router-dom';
-
+import { useSelector } from 'react-redux';
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ContactInformationForm() {
+    const applicantInformtion = useSelector(state => state.applicant_information_details)
     const dispatch = useDispatch();
     const classes = useStyles();
     const [errorHnadling, setErrorHnandling] = useState('')
@@ -277,7 +278,7 @@ export default function ContactInformationForm() {
                     </form>
                     <div className="btn-container">
                         <div>
-                            <Link to="/applicant-information">
+                            <Link to={{ pathname: '/applicant-information', state: { ap: applicantInformtion } }}>
                                 <button type="button" className="back-btn"><h2>Back</h2></button>
                             </Link>
                         </div>

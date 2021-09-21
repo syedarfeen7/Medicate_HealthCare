@@ -17,6 +17,7 @@ import { useDispatch } from 'react-redux';
 import { MedicareInformation } from '../../Store/Actions/applicantAction';
 import { medicareInformationScheema } from '../../Helpers/Validator/validator';
 import { useHistory, useLocation } from "react-router";
+import { useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -25,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function MedicareInformationForm() {
     const dispatch = useDispatch();
+    const contactInformation = useSelector(state => state.contact_information_details)
     const classes = useStyles();
     const [medicareNumber, setMedicareNumber] = useState(null);
     const [medicarePartAStartDate, setMedicarePartAStartDate] = useState(null);
@@ -104,7 +106,7 @@ export default function MedicareInformationForm() {
                                                 variant="inline"
                                                 format="dd/MM/yyyy"
                                                 margin="normal"
-                                                style={{width:'100%'}}
+                                                style={{ width: '100%' }}
                                                 id="date-picker-inline"
                                                 placeholder="Enter your medicare (Part-A) start date"
                                                 value={medicarePartAStartDate}
@@ -117,6 +119,7 @@ export default function MedicareInformationForm() {
                                     </MuiPickersUtilsProvider>
 
                                 </Grid>
+                                <br />
                                 <Grid item lg={12} sm={12} xs={12} className="date-picker-grid medicare-date-pickere">
                                     <FormLabel className="main-section-font-color label">Medicare (Part-B) start date</FormLabel>
                                     <MuiPickersUtilsProvider utils={DateFnsUtils} className="date-border">
@@ -126,7 +129,7 @@ export default function MedicareInformationForm() {
                                                 variant="inline"
                                                 format="dd/MM/yyyy"
                                                 margin="normal"
-                                                style={{width:'100%'}}
+                                                style={{ width: '100%' }}
                                                 id="date-picker-inline"
                                                 placeholder="Enter your medicare (Part-B) start date"
                                                 value={medicarePartBStartDate}
@@ -157,7 +160,7 @@ export default function MedicareInformationForm() {
                     </form>
                     <div className="btn-container">
                         <div>
-                            <Link to="/contact-information">
+                            <Link to={{ pathname: '/contact-information', state: { ci: contactInformation } }}>
                                 <button type="button" className="back-btn"><h2>Back</h2></button>
                             </Link>
                         </div>

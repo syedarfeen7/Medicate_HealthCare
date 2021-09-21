@@ -3,6 +3,7 @@
     margin: 2rem auto 0rem auto;
     border-radius: 20px;
     width: 80%;
+    /* border: 1px solid red; */
 }
 
 /* MAIN SECTION H1 HEADING STYLING  */
@@ -85,7 +86,15 @@
     font-size: 20px;
     font-weight: 400;
 }
-
+.choice-plan-2 .monthly-premium{
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    text-align: center;
+}
+.home-choice-plan{
+    margin-top: .4rem !important;
+}
 .read-more {
     font-weight: 600;
     cursor: pointer;
@@ -96,6 +105,13 @@
 }
 
 /* MEDIA QUERY STARTING FROM HERE */
+
+@media screen and (max-width: 959px) {
+    
+    .choice-palns{
+        text-align: center !important;
+    }
+}
 
 @media only screen and (max-width: 768px) {
     .main-intro-heading h1 {

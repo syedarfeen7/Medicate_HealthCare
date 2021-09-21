@@ -48,20 +48,18 @@ export default function EnrollmentCompleted() {
                     </div>
                     <Grid container>
 
-                        <Grid item lg={4} md={4} xs={12}>
+                        <Grid item lg={4} md={6} xs={12}>
                             <div className="logo-wrapper">
                                 <img src="images/Logo-Healthcare.png" className="united-health-care-image" alt="logo" />
                             </div>
                         </Grid>
-                        <Grid item lg={4} md={4} xs={6}>
-                            <div>
-                                <p className="monthly-premium font-blue">$0 Monthly premium</p>
+                        <Grid item lg={8} md={6} sm={12} xs={12}>
+                            <div className="choice-plans">
+                                <p className="choice-plan-2 font-blue">AARP Medicare advantage choice Plan 2 (PPO)</p>
+                                <p className="monthly-premium home-choice-plan font-blue">$0 Monthly premium</p>
                             </div>
                         </Grid>
                         <Grid item lg={4} md={4} xs={6}>
-                            <div>
-                                <p className="choice-plan-2 font-blue">AARP Medicare advantage choice Plan 2 (PPO)</p>
-                            </div>
                         </Grid>
                     </Grid>
                     <div className="main-section-font-color main-intro-heading">

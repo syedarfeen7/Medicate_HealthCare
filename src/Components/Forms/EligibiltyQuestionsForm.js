@@ -27,7 +27,7 @@ import '../../Styles/GenearlizeStyle/style.css';
 import '../../Styles/EligibilityQuestionsStyling/style.css';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { useState, useEffect } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { EligibilityQuestions } from '../../Store/Actions/applicantAction';
 import { eligibilityQuestionsScheema, eligibilityQuestionMedicardNumberScheema } from '../../Helpers/Validator/validator';
 import { useHistory, useLocation } from "react-router";
@@ -45,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function EligibilityQuestionsForm() {
     const dispatch = useDispatch();
+    const medicareInformation = useSelector(state => state.medicare_information_details)
     const classes = useStyles();
     const [medicareEnrollmentPeriod, setMedicareEnrollmentPeriod] = useState("");
     const [visibleOtherEnrollmentPeriod, setVisibleOtherEnrollmentPeriod] = useState(false)
@@ -87,7 +88,7 @@ export default function EligibilityQuestionsForm() {
     const history = useHistory();
     const location = useLocation()
     const editableEligibilityQuestions = location.state
-
+    
     useEffect(() => {
         if (editableEligibilityQuestions) {
             updateEligibilityQuestions()
@@ -1085,7 +1086,7 @@ export default function EligibilityQuestionsForm() {
                     </form>
                     <div className="btn-container">
                         <div>
-                            <Link to="/medicare-information">
+                            <Link to={{ pathname: '/medicare-information', state: { mi: medicareInformation } }}>
                                 <button type="button" className="back-btn"><h2>Back</h2></button>
                             </Link>
                         </div>

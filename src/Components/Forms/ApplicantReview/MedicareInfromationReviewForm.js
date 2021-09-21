@@ -21,11 +21,11 @@ export default function MedicareInformationReviewForm() {
 
             if (medicareInformation.medicarePartAStartDate && medicareInformation.medicarePartBStartDate) {
 
-                if (typeof (medicareInformation.medicarePartAStartDate === "object" || medicareInformation.medicarePartBStartDate === "object")) {
+                if (typeof medicareInformation.medicarePartAStartDate === "object" || typeof medicareInformation.medicarePartBStartDate === "object") {
                     setDateOne(medicareInformation.medicarePartAStartDate.getFullYear() + "-" + parseInt(medicareInformation.medicarePartAStartDate.getMonth() + 1) + "-" + medicareInformation.medicarePartAStartDate.getDate())
                     setDateTwo(medicareInformation.medicarePartBStartDate.getFullYear() + "-" + parseInt(medicareInformation.medicarePartBStartDate.getMonth() + 1) + "-" + medicareInformation.medicarePartBStartDate.getDate())
                 }
-                if (typeof medicareInformation.medicarePartAStartDate === "string" || medicareInformation.medicarePartBStartDate === "string") {
+                if (typeof medicareInformation.medicarePartAStartDate === "string" || typeof medicareInformation.medicarePartBStartDate === "string") {
                     console.log("Insid else")
                     setDateOne(medicareInformation.medicarePartAStartDate.slice(0, 10))
                     setDateTwo(medicareInformation.medicarePartBStartDate.slice(0, 10))

@@ -51,7 +51,7 @@ export default function Header() {
                     {/* TERNINARY OPERTAOR TO CHECK THE CURRENT PATH LOCATION */}
                     {enrollmentCompletedPage || homePage ?
                         <>
-                            <Grid item lg={12} md={12} xs={12}>
+                            <Grid item lg={12} md={12} sm={12} xs={12}>
                                 <div className="logo-wrapper">
                                     <img src="images/LogoVirtualMedicare.png" className="logo-image" alt="logo" />
                                 </div>
@@ -75,24 +75,24 @@ export default function Header() {
                                             <MenuIcon className="main-section-font-color menuIcon" onClick={showSideBar} />
                                         </div>
                                     </Grid>
-                                    <Grid item xs={11} className="logo-lg-screen">
+                                    <Grid item xs={12} className="logo-lg-screen">
                                         <div className="logo-wrapper">
                                             <img src="images/LogoVirtualMedicare.png" className="logo-image" alt="logo" />
                                         </div>
                                     </Grid>
                                 </>
                             }
-                            <Grid item lg={2} md={12} xs={11}>
+                            <Grid item lg={4} md={12} xs={12}>
                                 <div className="logo-wrapper">
                                     <img src="images/Logo-Healthcare.png" className="united-health-care-image" alt="logo" />
                                 </div>
                             </Grid>
-                            <Grid item lg={2} md={4} xs={6}>
+                            <Grid item lg={3} md={6} xs={6}>
                                 <div>
                                     <p className="monthly-premium font-blue">$0 Monthly premium</p>
                                 </div>
                             </Grid>
-                            <Grid item lg={3} md={4} xs={6}>
+                            <Grid item lg={5} md={6} xs={6}>
                                 <div>
                                     <p className="choice-plan-2 font-blue">AARP Medicare advantage choice Plan 2 (PPO)</p>
                                 </div>
