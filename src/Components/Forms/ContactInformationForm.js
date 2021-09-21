@@ -8,7 +8,7 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import { ContactInformation } from '../../Store/Actions/applicantAction';
-import { contactInfromationScheema } from '../../Helpers/Validator/validator';
+import { contactInfromationScheema, contactInformationMailingAddressScheema } from '../../Helpers/Validator/validator';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
@@ -111,7 +111,15 @@ export default function ContactInformationForm() {
             console.log("Response====>", res)
             // AFTER SUCCESS WE DSIPATCHED IT TO STORE
             dispatch(ContactInformation(res))
-            history.push('/medicare-information')
+            if (Checkbox) {
+
+                if (streetOne && cityOne && Checkbox && streetTwo && cityTwo && state && zipCode) {
+                    history.push('/medicare-information')
+                }
+            }
+            else {
+                history.push('/medicare-information')
+            }
         }).catch((err) => {
             console.log({ err })
             console.log("Error====>", err.message)
@@ -122,6 +130,18 @@ export default function ContactInformationForm() {
                 document.querySelector(`#${err.path}`).innerHTML = err.message
             setErrorHnandling(err.message)
         })
+        if (Checkbox) {
+            await contactInformationMailingAddressScheema.strict().validate(data).then(res => {
+                console.log(res)
+            })
+                .catch(err => {
+                    document.querySelectorAll(".error-msg").forEach((i) => { i.innerHTML = "" })
+                    if (document.querySelector(`#${err.path}`))
+                        document.querySelector(`#${err.path}`).innerHTML = err.message
+
+
+                })
+        }
     }
     return <>
         <div className="light-gray-bg-color">
@@ -207,43 +227,51 @@ export default function ContactInformationForm() {
                                     </RadioGroup>
                                 </FormControl>
                             </Grid>
+                            {Checkbox ?
 
-                            <Grid item xs={12}>
-                                <div>
-                                    <h3 className="main-section-font-color mailingAddress">Mailing address</h3>
-                                </div>
-                            </Grid>
+                                <>
+                                    <Grid item xs={12}>
+                                        <div>
+                                            <h3 className="main-section-font-color mailingAddress">Mailing address</h3>
+                                        </div>
+                                    </Grid>
 
-                            <Grid item lg={6} sm={6} xs={12} >
-                                <FormControl className="field-wrapper">
-                                    <FormLabel className="main-section-font-color label">Street *</FormLabel>
-                                    <TextField value={streetTwo} className="custom-text-box" placeholder="Enter your street" variant="outlined" onChange={(e) => { setStreetTwo(e.target.value) }} />
-                                    <div id="streetTwo" className="red-text error-msg"></div>
-                                </FormControl>
-                            </Grid>
+                                    <Grid item lg={6} sm={6} xs={12} >
+                                        <FormControl className="field-wrapper">
+                                            <FormLabel className="main-section-font-color label">Street *</FormLabel>
+                                            <TextField value={streetTwo} className="custom-text-box" placeholder="Enter your street" variant="outlined" onChange={(e) => { setStreetTwo(e.target.value) }} />
+                                            <div id="streetTwo" className="red-text error-msg"></div>
+                                        </FormControl>
+                                    </Grid>
 
-                            <Grid item lg={6} sm={6} xs={12} >
-                                <FormControl className="field-wrapper">
-                                    <FormLabel className="main-section-font-color label">State *</FormLabel>
-                                    <TextField value={state} className="custom-text-box" placeholder="Enter your state" variant="outlined" onChange={(e) => { setState(e.target.value) }} />
-                                    <div id="state" className="red-text error-msg"></div>
-                                </FormControl>
-                            </Grid>
-                            <Grid item lg={6} sm={6} xs={12} >
-                                <FormControl className="field-wrapper">
-                                    <FormLabel className="main-section-font-color label">City *</FormLabel>
-                                    <TextField value={cityTwo} className="custom-text-box" placeholder="Enter your city" variant="outlined" onChange={(e) => { setCityTwo(e.target.value) }} />
-                                    <div id="cityTwo" className="red-text error-msg"></div>
-                                </FormControl>
-                            </Grid>
+                                    <Grid item lg={6} sm={6} xs={12} >
+                                        <FormControl className="field-wrapper">
+                                            <FormLabel className="main-section-font-color label">State *</FormLabel>
+                                            <TextField value={state} className="custom-text-box" placeholder="Enter your state" variant="outlined" onChange={(e) => { setState(e.target.value) }} />
+                                            <div id="state" className="red-text error-msg"></div>
+                                        </FormControl>
+                                    </Grid>
+                                    <Grid item lg={6} sm={6} xs={12} >
+                                        <FormControl className="field-wrapper">
+                                            <FormLabel className="main-section-font-color label">City *</FormLabel>
+                                            <TextField value={cityTwo} className="custom-text-box" placeholder="Enter your city" variant="outlined" onChange={(e) => { setCityTwo(e.target.value) }} />
+                                            <div id="cityTwo" className="red-text error-msg"></div>
+                                        </FormControl>
+                                    </Grid>
 
-                            <Grid item lg={6} sm={6} xs={12} >
-                                <FormControl className="field-wrapper">
-                                    <FormLabel className="main-section-font-color label">Zip Code *</FormLabel>
-                                    <TextField value={zipCode} className="custom-text-box" placeholder="Enter your zip code" variant="outlined" onChange={(e) => { setZipCode(e.target.value) }} />
-                                    <div id="zipCode" className="red-text error-msg"></div>
-                                </FormControl>
-                            </Grid>
+                                    <Grid item lg={6} sm={6} xs={12} >
+                                        <FormControl className="field-wrapper">
+                                            <FormLabel className="main-section-font-color label">Zip Code *</FormLabel>
+                                            <TextField value={zipCode} className="custom-text-box" placeholder="Enter your zip code" variant="outlined" onChange={(e) => { setZipCode(e.target.value) }} />
+                                            <div id="zipCode" className="red-text error-msg"></div>
+                                        </FormControl>
+                                    </Grid>
+
+                                </>
+                                :
+
+                                <></>}
+
 
                         </Grid>
                     </form>

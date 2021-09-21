@@ -5,7 +5,7 @@ import '../../Styles/GenearlizeStyle/style.css';
 import '../../Styles/EligibilityQuestionsStyling/style.css';
 import '../../Styles/ApplicantSignatureStyling/style.css';
 import { ApplicantSignature } from '../../Store/Actions/applicantAction';
-import { applicantSignatureScheema } from '../../Helpers/Validator/validator';
+import { applicantSignatureScheema, applicantAuthorizedScheema } from '../../Helpers/Validator/validator';
 import {
     FormControl,
     FormLabel,
@@ -19,7 +19,7 @@ import {
     TextField,
     Dialog
 } from "@material-ui/core";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 const useStyles = makeStyles((theme) => ({
@@ -31,6 +31,7 @@ export default function ApplicantSignatureForm() {
     const classes = useStyles();
     const history = useHistory()
     const [appplicantSignatureMMethod, setApplicantSignatureMethod] = useState('');
+    const [applicantAuthorized, setApplicantAuthorized] = useState('')
     const [signature, setSignature] = useState('');
     const [firstName, setFirstName] = useState('');
     const [secondName, setSecondName] = useState('');
@@ -43,19 +44,33 @@ export default function ApplicantSignatureForm() {
     const [acknowledge, setAcknowledge] = useState('')
     const [submissionTime, setsubmissionTime] = useState(new Date())
     const dispatch = useDispatch()
-    
+
+    const abc = () => {
+        setApplicantAuthorized('')
+
+    }
     //  FUNCTION TO SAVE THE APPLICANT SIGNATURE DETAILS
     const saveApplicantSignature = async (e) => {
         e.preventDefault()
-        let data = { appplicantSignatureMMethod, firstName, secondName, submissionTime, relationshipToEnrolle, street, state, city, zipCode, phoneNumber, acknowledge, signature }
+        let data = { appplicantSignatureMMethod, applicantAuthorized, firstName, secondName, submissionTime, relationshipToEnrolle, street, state, city, zipCode, phoneNumber, acknowledge, signature }
 
         // VALIDATION USING YUP
         await applicantSignatureScheema.strict().validate(data).then(res => {
             console.log(res)
 
             // AFTER VALIDATE WE DIPATCHED THE DATA TO REDUX STORE
-            dispatch(ApplicantSignature(res))
-            history.push("/enrollment-completed")
+            if (applicantAuthorized) {
+                if (applicantAuthorized && firstName && secondName && relationshipToEnrolle && street && state && city && zipCode && acknowledge && signature) {
+
+                    dispatch(ApplicantSignature(res))
+                    history.push("/enrollment-completed")
+                }
+            }
+            else {
+                dispatch(ApplicantSignature(res))
+                history.push("/enrollment-completed")
+
+            }
         })
             .catch(err => {
                 console.log(err)
@@ -63,6 +78,17 @@ export default function ApplicantSignatureForm() {
                 if (document.querySelector(`#${err.path}`))
                     document.querySelector(`#${err.path}`).innerHTML = err.message
             })
+        if (applicantAuthorized) {
+            await applicantAuthorizedScheema.strict().validate(data).then(res => {
+
+            })
+                .catch(err => {
+                    console.log(err)
+                    document.querySelectorAll(".error-msg").forEach((i) => { i.innerHTML = "" })
+                    if (document.querySelector(`#${err.path}`))
+                        document.querySelector(`#${err.path}`).innerHTML = err.message
+                })
+        }
 
     }
     return <>
@@ -85,13 +111,13 @@ export default function ApplicantSignatureForm() {
                                 <div id="appplicantSignatureMMethod" className="red-text error-msg"></div>
                                 <div className="applicant-effective-date-radio">
                                     <label className="labl">
-                                        <input type="radio" name="radioname" value="I am completing this enrollment form on my own" onChange={(e) => { setApplicantSignatureMethod(e.target.value) }} />
+                                        <input type="radio" onClick={abc} name="radioname" value="I am completing this enrollment form on my own" onChange={(e) => { setApplicantSignatureMethod(e.target.value) }} />
                                         <div>
                                             <p className="main-section-font-color radio-option-text">I am completing this enrollment form on my own</p>
                                         </div>
                                     </label>
                                     <label className="labl">
-                                        <input type="radio" name="radioname" value="I am an authorized representative to act on behalf of the individual listed on this enrollment application" onChange={(e) => { setApplicantSignatureMethod(e.target.value) }} />
+                                        <input type="radio" name="radioname" value="I am an authorized representative to act on behalf of the individual listed on this enrollment application" onChange={(e) => { setApplicantAuthorized(e.target.value) }} />
                                         <div>
                                             <p className="main-section-font-color radio-option-text">I am an authorized representative to act on behalf of the individual listed on this enrollment application</p>
 
@@ -103,99 +129,107 @@ export default function ApplicantSignatureForm() {
                         <Grid container>
                             <Grid item xs={12} style={{ marginTop: '2rem' }}>
                                 <div className={classes.root}>
-                                    <Accordion className="accordion">
-                                        <AccordionSummary
-                                            expandIcon={<ExpandMoreIcon />}
-                                            aria-controls="panel1a-content"
-                                            id="panel1a-header"
-                                        >
-                                            <Typography><h3 className="main-section-font-color accordionHeading">Authorized individual / volunteer</h3></Typography>
-                                        </AccordionSummary>
-                                        <AccordionDetails>
-                                            <Grid container>
+                                    {applicantAuthorized
+                                        ?
+                                        <>
+                                            <Accordion className="accordion">
+                                                <AccordionSummary
+                                                    expandIcon={<ExpandMoreIcon />}
+                                                    aria-controls="panel1a-content"
+                                                    id="panel1a-header"
+                                                >
+                                                    <Typography><h3 className="main-section-font-color accordionHeading">Authorized individual / volunteer</h3></Typography>
+                                                </AccordionSummary>
+                                                <AccordionDetails>
+                                                    <Grid container>
 
-                                                <Grid item lg={6} sm={6} xs={12} item>
-                                                    <FormControl className="field-wrapper">
-                                                        <FormLabel className="main-section-font-color label">First name *</FormLabel>
+                                                        <Grid item lg={6} sm={6} xs={12} item>
+                                                            <FormControl className="field-wrapper">
+                                                                <FormLabel className="main-section-font-color label">First name *</FormLabel>
 
-                                                        <TextField value={firstName} className="custom-text-box" placeholder="Enter your first name" variant="outlined" onChange={(e) => { setFirstName(e.target.value) }} />
-                                                        <div id="firstName" className="red-text error-msg"></div>
-                                                    </FormControl>
-                                                </Grid>
+                                                                <TextField value={firstName} className="custom-text-box" placeholder="Enter your first name" variant="outlined" onChange={(e) => { setFirstName(e.target.value) }} />
+                                                                <div id="firstName" className="red-text error-msg"></div>
+                                                            </FormControl>
+                                                        </Grid>
 
-                                                <Grid item lg={6} sm={6} xs={12} item>
-                                                    <FormControl className="field-wrapper">
-                                                        <FormLabel className="main-section-font-color label">Second name *</FormLabel>
+                                                        <Grid item lg={6} sm={6} xs={12} item>
+                                                            <FormControl className="field-wrapper">
+                                                                <FormLabel className="main-section-font-color label">Second name *</FormLabel>
 
-                                                        <TextField value={secondName} className="custom-text-box" placeholder="Enter your second name" variant="outlined" onChange={(e) => { setSecondName(e.target.value) }} />
-                                                        <div id="secondName" className="red-text error-msg"></div>
+                                                                <TextField value={secondName} className="custom-text-box" placeholder="Enter your second name" variant="outlined" onChange={(e) => { setSecondName(e.target.value) }} />
+                                                                <div id="secondName" className="red-text error-msg"></div>
 
-                                                    </FormControl>
-                                                </Grid>
-
-
-                                                <Grid lg={6} sm={6} xs={12} item>
-                                                    <FormControl className="field-wrapper">
-                                                        <FormLabel className="main-section-font-color label">Relationship to enrollee *</FormLabel>
-
-                                                        <TextField value={relationshipToEnrolle} className="custom-text-box" placeholder="Enter your relationship to enrollee" variant="outlined" onChange={(e) => { setRelationshiptoEnrolle(e.target.value) }} />
-                                                        <div id="relationshipToEnrolle" className="red-text error-msg"></div>
-                                                    </FormControl>
-                                                </Grid>
-                                                <Grid lg={6} sm={6} xs={12} item className="hide-grid-city"></Grid>
-
-                                                <Grid item lg={6} sm={6} xs={12} item>
-                                                    <FormControl className="field-wrapper">
-                                                        <FormLabel className="main-section-font-color label">Street *</FormLabel>
-                                                        <TextField value={street} className="custom-text-box" placeholder="Enter your street" variant="outlined" onChange={(e) => { setStreet(e.target.value) }} />
-                                                        <div id="street" className="red-text error-msg"></div>
-
-                                                    </FormControl>
-                                                </Grid>
-
-                                                <Grid item lg={6} sm={6} xs={12} item>
-                                                    <FormControl className="field-wrapper">
-                                                        <FormLabel className="main-section-font-color label">State *</FormLabel>
-                                                        <TextField value={state} className="custom-text-box" placeholder="Enter your state" variant="outlined" onChange={(e) => { setState(e.target.value) }} />
-                                                        <div id="state" className="red-text error-msg"></div>
-
-                                                    </FormControl>
-                                                </Grid>
+                                                            </FormControl>
+                                                        </Grid>
 
 
+                                                        <Grid lg={6} sm={6} xs={12} item>
+                                                            <FormControl className="field-wrapper">
+                                                                <FormLabel className="main-section-font-color label">Relationship to enrollee *</FormLabel>
+
+                                                                <TextField value={relationshipToEnrolle} className="custom-text-box" placeholder="Enter your relationship to enrollee" variant="outlined" onChange={(e) => { setRelationshiptoEnrolle(e.target.value) }} />
+                                                                <div id="relationshipToEnrolle" className="red-text error-msg"></div>
+                                                            </FormControl>
+                                                        </Grid>
+                                                        <Grid lg={6} sm={6} xs={12} item className="hide-grid-city"></Grid>
+
+                                                        <Grid item lg={6} sm={6} xs={12} item>
+                                                            <FormControl className="field-wrapper">
+                                                                <FormLabel className="main-section-font-color label">Street *</FormLabel>
+                                                                <TextField value={street} className="custom-text-box" placeholder="Enter your street" variant="outlined" onChange={(e) => { setStreet(e.target.value) }} />
+                                                                <div id="street" className="red-text error-msg"></div>
+
+                                                            </FormControl>
+                                                        </Grid>
+
+                                                        <Grid item lg={6} sm={6} xs={12} item>
+                                                            <FormControl className="field-wrapper">
+                                                                <FormLabel className="main-section-font-color label">State *</FormLabel>
+                                                                <TextField value={state} className="custom-text-box" placeholder="Enter your state" variant="outlined" onChange={(e) => { setState(e.target.value) }} />
+                                                                <div id="state" className="red-text error-msg"></div>
+
+                                                            </FormControl>
+                                                        </Grid>
 
 
-                                                <Grid item lg={6} sm={6} xs={12} >
-                                                    <FormControl className="field-wrapper">
-                                                        <FormLabel className="main-section-font-color label">City *</FormLabel>
-                                                        <TextField value={city} className="custom-text-box" placeholder="Enter your city" variant="outlined" onChange={(e) => { setCity(e.target.value) }} />
-                                                        <div id="city" className="red-text error-msg"></div>
-                                                    </FormControl>
-                                                </Grid>
 
-                                                <Grid item lg={6} sm={6} xs={12} >
-                                                    <FormControl className="field-wrapper">
-                                                        <FormLabel className="main-section-font-color label">Zip Code *</FormLabel>
-                                                        <TextField value={zipCode} className="custom-text-box" placeholder="Enter your zip code" variant="outlined" onChange={(e) => { setZipCode(e.target.value) }} />
-                                                        <div id="zipCode" className="red-text error-msg"></div>
-                                                    </FormControl>
-                                                </Grid>
-                                                <Grid item lg={6} sm={6} xs={12} >
-                                                    <FormControl className="field-wrapper">
-                                                        <FormLabel className="main-section-font-color label">Phone number</FormLabel>
-                                                        <TextField value={phoneNumber} className="custom-text-box" placeholder="Enter your phonr number" variant="outlined" onChange={(e) => { setPhoneNumber(e.target.value) }} />
-                                                    </FormControl>
-                                                </Grid>
-                                                <Grid lg={6} sm={6} xs={12} item className="hide-grid-city"></Grid>
 
-                                                <Grid xs={12} item>
-                                                    <div>
-                                                        <p className="main-section-font-color authorizedText">If you have been authorized to complete this application on behalf of the individual listed on this application, under the laws of the state in which this individual resides, you must provide the following information. Upon request, you must be able to present UnitedHealthcare and/or Medicare with documentation of your authority to represent the individual listed on this application.</p>
-                                                    </div>
-                                                </Grid>
-                                            </Grid>
-                                        </AccordionDetails>
-                                    </Accordion>
+                                                        <Grid item lg={6} sm={6} xs={12} >
+                                                            <FormControl className="field-wrapper">
+                                                                <FormLabel className="main-section-font-color label">City *</FormLabel>
+                                                                <TextField value={city} className="custom-text-box" placeholder="Enter your city" variant="outlined" onChange={(e) => { setCity(e.target.value) }} />
+                                                                <div id="city" className="red-text error-msg"></div>
+                                                            </FormControl>
+                                                        </Grid>
+
+                                                        <Grid item lg={6} sm={6} xs={12} >
+                                                            <FormControl className="field-wrapper">
+                                                                <FormLabel className="main-section-font-color label">Zip Code *</FormLabel>
+                                                                <TextField value={zipCode} className="custom-text-box" placeholder="Enter your zip code" variant="outlined" onChange={(e) => { setZipCode(e.target.value) }} />
+                                                                <div id="zipCode" className="red-text error-msg"></div>
+                                                            </FormControl>
+                                                        </Grid>
+                                                        <Grid item lg={6} sm={6} xs={12} >
+                                                            <FormControl className="field-wrapper">
+                                                                <FormLabel className="main-section-font-color label">Phone number</FormLabel>
+                                                                <TextField value={phoneNumber} className="custom-text-box" placeholder="Enter your phonr number" variant="outlined" onChange={(e) => { setPhoneNumber(e.target.value) }} />
+                                                            </FormControl>
+                                                        </Grid>
+                                                        <Grid lg={6} sm={6} xs={12} item className="hide-grid-city"></Grid>
+
+                                                        <Grid xs={12} item>
+                                                            <div>
+                                                                <p className="main-section-font-color authorizedText">If you have been authorized to complete this application on behalf of the individual listed on this application, under the laws of the state in which this individual resides, you must provide the following information. Upon request, you must be able to present UnitedHealthcare and/or Medicare with documentation of your authority to represent the individual listed on this application.</p>
+                                                            </div>
+                                                        </Grid>
+                                                    </Grid>
+                                                </AccordionDetails>
+                                            </Accordion>
+                                        </>
+                                        :
+                                        <></>
+                                    }
+
                                 </div>
                             </Grid>
                         </Grid>

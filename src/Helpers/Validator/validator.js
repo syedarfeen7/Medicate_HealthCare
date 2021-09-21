@@ -19,10 +19,14 @@ export const contactInfromationScheema = yup.object().shape({
   phoneNumber: yup.string(),
   emailAddress: yup.string().email(),
   languagePreference: yup.string(),
+})
+
+export const contactInformationMailingAddressScheema = yup.object().shape({
   streetTwo: yup.string().required("Please enter your street"),
   state: yup.string().required("Please enter your state"),
   cityTwo: yup.string().required("Please enter your city"),
   zipCode: yup.string().required("Please enter Zip Code"),
+  
 })
 
 // SCEEMA TO VALIDATE MEDICARE INFORMATION
@@ -51,7 +55,6 @@ export const eligibilityQuestionsScheema = yup.object().shape({
   dateOfYouEstablishedResidencyOne: yup.date().nullable(),
   enrolledMedicardProgram: yup.string(),
   nursingHome: yup.string(),
-  medicardNumber: yup.string().required('Please enter Medicard number'),
   nameOfFacility: yup.string(),
   phoneNumber: yup.string(),
   street: yup.string(),
@@ -67,8 +70,13 @@ export const eligibilityQuestionsScheema = yup.object().shape({
   primaryCarePhysicianPhoneNumber: yup.string(),
   currentPatient: yup.string(),
   paymentOption: yup.string(),
+  
+  
+})
 
-
+export const eligibilityQuestionMedicardNumberScheema = yup.object().shape({
+  medicardNumber: yup.string().required('Please enter Medicard number'),
+  
 })
 
 // APPLICANT EFFECTIVE DATE SCHEEMA
@@ -82,6 +90,10 @@ export const applicantEffectiveDateScheema = yup.object().shape({
 export const applicantSignatureScheema = yup.object().shape({
   appplicantSignatureMMethod: yup.string().required("Please select any one"),
   signature: yup.string().required("Please enter your signature"),
+  acknowledge: yup.string().required("Please accept agreement ")
+})
+
+export const applicantAuthorizedScheema = yup.object().shape({
   firstName: yup.string().required("Please enter first name"),
   secondName: yup.string().required("Please enter second name"),
   relationshipToEnrolle: yup.string().required("Please enter relationship to enrollee"),
@@ -90,5 +102,5 @@ export const applicantSignatureScheema = yup.object().shape({
   city: yup.string().required("Please enter city"),
   zipCode: yup.string().required("Please enter zip code"),
   phoneNumber: yup.string(),
-  acknowledge: yup.string().required("Please accept agreement ")
+
 })

@@ -29,7 +29,7 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import { EligibilityQuestions } from '../../Store/Actions/applicantAction';
-import { eligibilityQuestionsScheema } from '../../Helpers/Validator/validator';
+import { eligibilityQuestionsScheema, eligibilityQuestionMedicardNumberScheema } from '../../Helpers/Validator/validator';
 import { useHistory, useLocation } from "react-router";
 import { Link } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
@@ -118,7 +118,7 @@ export default function EligibilityQuestionsForm() {
         const paymentMethod = editableEligibilityQuestions.eq.paymentOption
         const paymentDefaultOptions = ["Get a monthly bill", "Social Security Benefit Check Deduction (SSA)", "Railroad Retirement Board Benefit Check Deduction (RRB)"]
         const defaultOptions = ["Annual enrollment period (October 15-December7)", "I am new to Medicare", "I сurrently рave a low income subsidy or extra help", "I am leaving employer or union coverage.", "I recently moved outside of the service area for my current plan or I recently moved and this plan is a new option for me.", "I have Medicare and Medicaid", "I am enrolling in a 5-star Medicare Plan.", "I recently had a change in my Extra Help paying for Medicare prescription drug coverage (newly got Extra Help, had a change in the level of Extra Help, or lost Extra Help).", "I do not see an option listed for me"];
-        
+
         // CONDITIONS TO CHECKED THE ARDIO BOX OF ENROLLMENT PERIOD
         if (defaultOptions.find(opt => opt == val) == undefined) {
 
@@ -231,17 +231,26 @@ export default function EligibilityQuestionsForm() {
     // FUNCTION TO SAVE THE ELIGIBILITY QUESTIONS AND DISPATCH IT TO STORE
     const saveEligibilityQuestion = async (e) => {
         e.preventDefault();
-        
+
         // const medicarePartBEffectiveDate = medicarePartBEffectiveDate.getDate() + "-" + medicarePartBEffectiveDate.getMonth() + "-" + medicarePartBEffectiveDate.getFullYear()
         let data = { medicareEnrollmentPeriod, medicarePartBEffectiveDate, dateOfYouEstablishedResidencyOne, endDateOfPreviousCoverageOne, dateOfYouEstablishedResidencyTwo, endDateOfPreviousCoverageTwo, medicareStartDate, dateReleasedFromIncarceration, endDateOfPreviousCoverageThree, endDateOfPreviousCoverageFour, endDateOfPreviousCoverageFive, DateOfCoverageYouAreLeaving, dateOfYouEstablishedResidencyThree, enrolledMedicardProgram, nursingHome, medicardNumber, nameOfFacility, phoneNumber, street, city, state, zipCode, healthInsurance, spouseWork, healthInsuranceTwo, perciptionDrugCoverage, primaryCarePhysicianFullName, primaryCarePhysicianIDNumber, primaryCarePhysicianPhoneNumber, currentPatient, paymentOption }
 
         // HERE WE ARE VALIDATING THE ELIGIBILITY QUESTION
         await eligibilityQuestionsScheema.strict().validate(data).then(res => {
             console.log("Response====>", res)
-            
+
             // AFTER SUCCESS WE DSIPATCHED IT TO STORE
-            dispatch(EligibilityQuestions(data))
-            history.push('/applicant-review')
+            if (enrolledMedicardProgram) {
+                if (enrolledMedicardProgram && medicardNumber) {
+                    dispatch(EligibilityQuestions(data))
+                    history.push('/applicant-review')
+                }
+            }
+            else {
+                dispatch(EligibilityQuestions(data))
+                history.push('/applicant-review')
+
+            }
         })
             .catch((err) => {
                 console.log("Error====>", { err })
@@ -257,6 +266,22 @@ export default function EligibilityQuestionsForm() {
                     }
                 setErrorHnandling(err.message)
             })
+        if (enrolledMedicardProgram) {
+            await eligibilityQuestionMedicardNumberScheema.strict().validate(data).then(res => {
+
+            })
+                .catch(err => {
+                    document.querySelectorAll(".error-msg").forEach((i) => { i.innerHTML = "" })
+                    if (document.querySelector(`#${err.path}`))
+                        if (document.querySelector(`#${err.path}`) === "#medicareEnrollmentPeriod" || document.querySelector(`#${err.path}`) === "#medicardNumber") {
+                            document.querySelector(`#${err.path}`).innerHTML = err.message
+                        }
+                        else {
+                            document.querySelector(`#${err.path}`).innerHTML = err.message
+                        }
+
+                })
+        }
     }
     return <>
         <div className="light-gray-bg-color">
@@ -823,70 +848,89 @@ export default function EligibilityQuestionsForm() {
                                                         </RadioGroup>
                                                     </FormControl>
                                                 </Grid>
-                                                <Grid item xl={6} lg={6} sm={6} xs={12}>
-                                                    <FormControl className="field-wrapper">
-                                                        <FormLabel className="main-section-font-color label">Medicaid number *</FormLabel>
-                                                        <TextField value={medicardNumber} className="custom-text-box" placeholder="Enter your medicaid number" variant="outlined" onChange={(e) => { setMedicardNumber(e.target.value) }} />
-                                                        <div id="medicardNumber" className="red-text error-msg"></div>
-                                                    </FormControl>
-                                                </Grid>
-                                                <Grid xl={6} lg={6} sm={6} xs={12} item></Grid>
-                                                <Grid item xs={12}>
-                                                    <div className="guidelines-text-wrapper">
-                                                        <h3 className="guidelines-text-h3 main-section-font-color">Provide the Information for the facilty</h3>
-                                                    </div>
-                                                </Grid>
-                                                <Grid item lg={6} sm={6} xs={12} item>
-                                                    <FormControl className="field-wrapper">
-                                                        <FormLabel className="main-section-font-color label">Name of facility</FormLabel>
+                                                {enrolledMedicardProgram && enrolledMedicardProgram === "Yes" ?
 
-                                                        <TextField value={nameOfFacility} className="custom-text-box" placeholder="Enter your name of facility" variant="outlined" onChange={(e) => { setNameOfFacility(e.target.value) }} />
-                                                        <div id="firstName" className="red-text error-msg"></div>
-                                                    </FormControl>
+                                                    <>
 
-                                                </Grid>
-                                                <Grid item lg={6} sm={6} xs={12} item>
-                                                    <FormControl className="field-wrapper">
-                                                        <FormLabel className="main-section-font-color label">Phone number</FormLabel>
+                                                        <Grid item xl={6} lg={6} sm={6} xs={12}>
+                                                            <FormControl className="field-wrapper">
+                                                                <FormLabel className="main-section-font-color label">Medicaid number *</FormLabel>
+                                                                <TextField value={medicardNumber} className="custom-text-box" placeholder="Enter your medicaid number" variant="outlined" onChange={(e) => { setMedicardNumber(e.target.value) }} />
+                                                                <div id="medicardNumber" className="red-text error-msg"></div>
+                                                            </FormControl>
+                                                        </Grid>
+                                                        <Grid xl={6} lg={6} sm={6} xs={12} item></Grid>
+                                                    </>
+                                                    :
 
-                                                        <TextField value={phoneNumber} className="custom-text-box" placeholder="Enter your phone number" variant="outlined" onChange={(e) => { setPhoneNumber(e.target.value) }} />
-                                                        <div id="middleName" className="red-text error-msg"></div>
-                                                    </FormControl>
-                                                </Grid>
-                                                <Grid item lg={6} sm={6} xs={12} item>
-                                                    <FormControl className="field-wrapper">
-                                                        <FormLabel className="main-section-font-color label">Street</FormLabel>
+                                                    <>
 
-                                                        <TextField value={street} className="custom-text-box" placeholder="Enter your street" variant="outlined" onChange={(e) => { setStreet(e.target.value) }} />
-                                                        <div id="street" className="red-text error-msg"></div>
-                                                    </FormControl>
+                                                    </>
+                                                }
+                                                {nursingHome && nursingHome === "Yes" ?
+                                                    <>
+                                                        <Grid item xs={12}>
+                                                            <div className="guidelines-text-wrapper">
+                                                                <h3 className="guidelines-text-h3 main-section-font-color">Provide the Information for the facilty</h3>
+                                                            </div>
+                                                        </Grid>
+                                                        <Grid item lg={6} sm={6} xs={12} item>
+                                                            <FormControl className="field-wrapper">
+                                                                <FormLabel className="main-section-font-color label">Name of facility</FormLabel>
 
-                                                </Grid>
-                                                <Grid item lg={6} sm={6} xs={12} item>
-                                                    <FormControl className="field-wrapper">
-                                                        <FormLabel className="main-section-font-color label">City</FormLabel>
+                                                                <TextField value={nameOfFacility} className="custom-text-box" placeholder="Enter your name of facility" variant="outlined" onChange={(e) => { setNameOfFacility(e.target.value) }} />
+                                                                <div id="nameOfFacility" className="red-text error-msg"></div>
+                                                            </FormControl>
 
-                                                        <TextField value={city} className="custom-text-box" placeholder="Enter your phone city" variant="outlined" onChange={(e) => { setCity(e.target.value) }} />
-                                                        <div id="city" className="red-text error-msg"></div>
-                                                    </FormControl>
-                                                </Grid>
-                                                <Grid item lg={6} sm={6} xs={12} item>
-                                                    <FormControl className="field-wrapper">
-                                                        <FormLabel className="main-section-font-color label">State</FormLabel>
+                                                        </Grid>
+                                                        <Grid item lg={6} sm={6} xs={12} item>
+                                                            <FormControl className="field-wrapper">
+                                                                <FormLabel className="main-section-font-color label">Phone number</FormLabel>
 
-                                                        <TextField value={state} className="custom-text-box" placeholder="Enter your street" variant="outlined" onChange={(e) => { setState(e.target.value) }} />
-                                                        <div id="state" className="red-text error-msg"></div>
-                                                    </FormControl>
+                                                                <TextField value={phoneNumber} className="custom-text-box" placeholder="Enter your phone number" variant="outlined" onChange={(e) => { setPhoneNumber(e.target.value) }} />
+                                                                <div id="phoneNumber" className="red-text error-msg"></div>
+                                                            </FormControl>
+                                                        </Grid>
+                                                        <Grid item lg={6} sm={6} xs={12} item>
+                                                            <FormControl className="field-wrapper">
+                                                                <FormLabel className="main-section-font-color label">Street</FormLabel>
 
-                                                </Grid>
-                                                <Grid item lg={6} sm={6} xs={12} item>
-                                                    <FormControl className="field-wrapper">
-                                                        <FormLabel className="main-section-font-color label">Zip Code</FormLabel>
+                                                                <TextField value={street} className="custom-text-box" placeholder="Enter your street" variant="outlined" onChange={(e) => { setStreet(e.target.value) }} />
+                                                                <div id="street" className="red-text error-msg"></div>
+                                                            </FormControl>
 
-                                                        <TextField value={zipCode} className="custom-text-box" placeholder="Enter your  zip code" variant="outlined" onChange={(e) => { setZipCode(e.target.value) }} />
-                                                        <div id="zipCode" className="red-text error-msg"></div>
-                                                    </FormControl>
-                                                </Grid>
+                                                        </Grid>
+                                                        <Grid item lg={6} sm={6} xs={12} item>
+                                                            <FormControl className="field-wrapper">
+                                                                <FormLabel className="main-section-font-color label">City</FormLabel>
+
+                                                                <TextField value={city} className="custom-text-box" placeholder="Enter your phone city" variant="outlined" onChange={(e) => { setCity(e.target.value) }} />
+                                                                <div id="city" className="red-text error-msg"></div>
+                                                            </FormControl>
+                                                        </Grid>
+                                                        <Grid item lg={6} sm={6} xs={12} item>
+                                                            <FormControl className="field-wrapper">
+                                                                <FormLabel className="main-section-font-color label">State</FormLabel>
+
+                                                                <TextField value={state} className="custom-text-box" placeholder="Enter your street" variant="outlined" onChange={(e) => { setState(e.target.value) }} />
+                                                                <div id="state" className="red-text error-msg"></div>
+                                                            </FormControl>
+
+                                                        </Grid>
+                                                        <Grid item lg={6} sm={6} xs={12} item>
+                                                            <FormControl className="field-wrapper">
+                                                                <FormLabel className="main-section-font-color label">Zip Code</FormLabel>
+
+                                                                <TextField value={zipCode} className="custom-text-box" placeholder="Enter your  zip code" variant="outlined" onChange={(e) => { setZipCode(e.target.value) }} />
+                                                                <div id="zipCode" className="red-text error-msg"></div>
+                                                            </FormControl>
+                                                        </Grid>
+                                                    </>
+
+                                                    :
+                                                    <></>
+                                                }
+
                                                 <Grid sm={12} item>
                                                     <FormControl component="fieldset" className="field-wrapper">
                                                         <FormLabel className="main-section-font-color label">Do you have health insurance through an employer on union right now?</FormLabel>
@@ -1098,10 +1142,10 @@ export default function EligibilityQuestionsForm() {
                 </DialogContent>
             </Dialog>
         </div>
-        
-        {/* DIALOG BOXES CONTENT OF THS PAGE */}                                       
+
+        {/* DIALOG BOXES CONTENT OF THS PAGE */}
         <div>
-           <Dialog onClose={() => { handleClose('closeRRB') }} className="pop-up-dialog" aria-labelledby="customized-dialog-title" open={openRRb}>
+            <Dialog onClose={() => { handleClose('closeRRB') }} className="pop-up-dialog" aria-labelledby="customized-dialog-title" open={openRRb}>
                 <DialogTitle id="customized-dialog-title" onClose={() => { handleClose('closeRRB') }}>
                     <h3 className="main-section-font-color info-pop-up">You clicked on learn more about RRB</h3>
                 </DialogTitle>
