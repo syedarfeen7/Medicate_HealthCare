@@ -231,7 +231,10 @@
     border-bottom-left-radius: 0;
     border-left: none;
 }
-
+.medicare-date-pickere{
+    padding-left: 0 !important;
+    padding-right: 2.2rem !important;
+}
 .checkBox-text {
     font-family: 'Open Sans', sans-serif;
     font-weight: 400;

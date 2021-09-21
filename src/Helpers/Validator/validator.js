@@ -33,8 +33,8 @@ export const contactInformationMailingAddressScheema = yup.object().shape({
 
 export const medicareInformationScheema = yup.object().shape({
   medicareNumber: yup.string().nullable().required("Enter your medicare number"),
-  medicarePartAStartDate: yup.string(),
-  medicarePartBStartDate: yup.string(),
+  medicarePartAStartDate: yup.date().nullable(),
+  medicarePartBStartDate: yup.date().nullable(),
 })
 
 // SCHEEMA TO VALIDATE ELIGIBILITY QUESTIONS

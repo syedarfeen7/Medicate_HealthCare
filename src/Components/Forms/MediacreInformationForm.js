@@ -4,6 +4,11 @@ import {
     FormControlLabel,
     TextField,
 } from "@material-ui/core";
+import {
+    MuiPickersUtilsProvider,
+    KeyboardDatePicker,
+} from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 import { Grid } from "@material-ui/core";
 import '../../Styles/GenearlizeStyle/style.css';
 import { makeStyles } from '@material-ui/core/styles';
@@ -22,15 +27,15 @@ export default function MedicareInformationForm() {
     const dispatch = useDispatch();
     const classes = useStyles();
     const [medicareNumber, setMedicareNumber] = useState(null);
-    const [medicarePartAStartDate, setMedicarePartAStartDate] = useState('');
-    const [medicarePartBStartDate, setMediacrePartBStartDate] = useState('');
+    const [medicarePartAStartDate, setMedicarePartAStartDate] = useState(null);
+    const [medicarePartBStartDate, setMediacrePartBStartDate] = useState(null);
     const [errorHandling, setErrorHnandling] = useState('');
     const history = useHistory();
     const location = useLocation();
     const editableMedicareInformation = location.state
- 
+
     useEffect(() => {
-        if(editableMedicareInformation){
+        if (editableMedicareInformation) {
             updateMedicareInformation()
         }
     }, [])
@@ -49,7 +54,7 @@ export default function MedicareInformationForm() {
         // HERE WE ARE VALIDATING THE MEDICARE INFORMATION
         await medicareInformationScheema.strict().validate(data).then(res => {
             console.log("Response====>", res)
-         
+
             // AFTER SUCCESS WE DSIPATCHED IT TO STORE
             dispatch(MedicareInformation(data))
             history.push('/eligibility-questions')
@@ -58,7 +63,7 @@ export default function MedicareInformationForm() {
                 console.log("Error====>", { err })
                 // HERE WE ARE ADDING ERRORS BELOW THE REQUIRED FIELDS
                 document.querySelectorAll(".error-msg").forEach((i) => { i.innerHTML = "" })
-                if(document.querySelector(`#${err.path}`))
+                if (document.querySelector(`#${err.path}`))
                     document.querySelector(`#${err.path}`).innerHTML = err.message
                 setErrorHnandling(err.message)
             })
@@ -90,31 +95,60 @@ export default function MedicareInformationForm() {
                                     </FormControl>
 
                                 </Grid>
-                                <Grid item sm={12} xs={12}>
-                                    <FormControl className="field-wrapper">
-                                        <FormLabel className="main-section-font-color label">Medicare (Part-A) start date</FormLabel>
+                                <Grid item lg={12} sm={12} xs={12} className="date-picker-grid medicare-date-pickere ">
+                                    <FormLabel className="main-section-font-color label">Medicare (Part-A) start date</FormLabel>
+                                    <MuiPickersUtilsProvider utils={DateFnsUtils} className="date-border">
+                                        <Grid container justify="space-around">
+                                            <KeyboardDatePicker
+                                                disableToolbar
+                                                variant="inline"
+                                                format="dd/MM/yyyy"
+                                                margin="normal"
+                                                style={{width:'100%'}}
+                                                id="date-picker-inline"
+                                                placeholder="Enter your medicare (Part-A) start date"
+                                                value={medicarePartAStartDate}
+                                                onChange={(e) => { setMedicarePartAStartDate(e) }}
+                                                KeyboardButtonProps={{
+                                                    'aria-label': 'change date',
+                                                }}
+                                            />
+                                        </Grid>
+                                    </MuiPickersUtilsProvider>
 
-                                        <TextField value={medicarePartAStartDate} className="custom-text-box" placeholder="Enter your medicare (Part-A) start date" variant="outlined" onChange={(e) => { setMedicarePartAStartDate(e.target.value) }} />
-                                        <div id="medicarePartAStartDate" className="red-text error-msg"></div>
-                                    </FormControl>
                                 </Grid>
-                                <Grid item sm={12}>
-                                    <FormControl className="field-wrapper">
-                                        <FormLabel className="main-section-font-color label">Medicare (Part-B) start date</FormLabel>
-                                        <TextField value={medicarePartBStartDate} className="custom-text-box" placeholder="Enter your medicare (Part-B) start date" variant="outlined" onChange={(e) => { setMediacrePartBStartDate(e.target.value) }} />
-                                        <div id="medicarePartBStartDate" className="red-text error-msg"></div>
-                                    </FormControl>
+                                <Grid item lg={12} sm={12} xs={12} className="date-picker-grid medicare-date-pickere">
+                                    <FormLabel className="main-section-font-color label">Medicare (Part-B) start date</FormLabel>
+                                    <MuiPickersUtilsProvider utils={DateFnsUtils} className="date-border">
+                                        <Grid container justify="space-around">
+                                            <KeyboardDatePicker
+                                                disableToolbar
+                                                variant="inline"
+                                                format="dd/MM/yyyy"
+                                                margin="normal"
+                                                style={{width:'100%'}}
+                                                id="date-picker-inline"
+                                                placeholder="Enter your medicare (Part-B) start date"
+                                                value={medicarePartBStartDate}
+                                                onChange={(e) => { setMediacrePartBStartDate(e) }}
+                                                KeyboardButtonProps={{
+                                                    'aria-label': 'change date',
+                                                }}
+                                            />
+                                        </Grid>
+                                    </MuiPickersUtilsProvider>
+
                                 </Grid>
 
                             </Grid>
                             <Grid item lg={6} md={6} sm={12}>
                                 <div className="medicareCardImageWrapper">
-                                    <img src="images/MedicareHealthInsurance.png" className="medicareCardImage" alt="Medicare Card Image"/>
+                                    <img src="images/MedicareHealthInsurance.png" className="medicareCardImage" alt="Medicare Card Image" />
                                 </div>
                             </Grid>
                             <Grid item sm={12}>
                                 <div className="notronWrapper">
-                                    <img src="images/Norton.png" alt="Norton"/>
+                                    <img src="images/Norton.png" alt="Norton" />
 
                                     <p className="poweredByDigcent">powered by &nbsp;<a href="https://www.digicert.com" target="_blank"><span className="font-sky">digciert</span></a></p>
                                 </div>
@@ -128,9 +162,9 @@ export default function MedicareInformationForm() {
                             </Link>
                         </div>
                         <div className="next-btn-wrapper">
-                            
-                                <button type="submit" className="next-btn" onClick={saveMedicareInformation}><h2 className="next-btn-h2">Next</h2></button>
-                      
+
+                            <button type="submit" className="next-btn" onClick={saveMedicareInformation}><h2 className="next-btn-h2">Next</h2></button>
+
                         </div>
                     </div>
                 </div>
