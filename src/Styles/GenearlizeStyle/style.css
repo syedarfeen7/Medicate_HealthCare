@@ -105,14 +105,14 @@
     font-weight: 600;
     font-size: 20px;
     margin-bottom: 1.5rem;
-}
+}   
 
 .label {
     font-family: "Open sans", sans-serif !important;
     color: #283C3C !important;
     font-weight: 400 !important;
     font-size: 20px !important;
-    margin: .8rem 0rem;
+    margin: .8rem 0rem !important;
 }
 
 .field-wrapper {
@@ -219,6 +219,7 @@
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     padding: 1rem;
+
 }
 
 .date-picker-grid #date-picker-inline~div {
@@ -393,17 +394,12 @@
 #sidebar .side-bar-menu h3:hover {
     color: var(--bg-sky);
 }
-/*  MEDICARE INFORMATION PAGE STYLING */
-/* .medicareCardImageWrapper{
-    display: flex !important;
-    align-items: center;
-    aspect-ratio: 1;
-} */
 .align-items-center{
     align-items: center;
 }
 .medicareCardImage{
     max-width: 100%;
+    margin-top: 1rem;
     /* aspect-ratio: 1; */
     
 }
@@ -449,6 +445,7 @@
     .toggle-btn {
         display: block;
     }
+   
 }
 
 @media only screen and (max-width: 767px) {
