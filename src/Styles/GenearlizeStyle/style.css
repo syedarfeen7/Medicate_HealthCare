@@ -221,7 +221,9 @@
     padding: 1rem;
 
 }
-
+.date-picker-grid{
+    padding-left: 0 !important;
+}
 .date-picker-grid #date-picker-inline~div {
     border: 2px solid #e5e5ee;
     height: 100%;

@@ -397,7 +397,10 @@ export default function EligibilityQuestionsForm() {
                                                             <KeyboardDatePicker
                                                                 disableToolbar
                                                                 variant="inline"
-                                                                format="dd/MM/yyyy"
+                                                                format="yyyy/MM/dd"
+                                                                views={["year", "month", "date"]}
+                                                                openTo="year"
+                                                                initialFocusedDate="1956,05,04"
                                                                 className="datePicker removeDate"
                                                                 onClick={dateRemover}
                                                                 margin="normal"
@@ -431,7 +434,10 @@ export default function EligibilityQuestionsForm() {
                                                             <KeyboardDatePicker
                                                                 disableToolbar
                                                                 variant="inline"
-                                                                format="dd/MM/yyyy"
+                                                                format="yyyy/MM/dd"
+                                                                views={["year", "month", "date"]}
+                                                                openTo="year"
+                                                                initialFocusedDate="1956,05,04"
                                                                 className="datePicker removeDate"
                                                                 onClick={dateRemover}
                                                                 margin="normal"
@@ -468,7 +474,10 @@ export default function EligibilityQuestionsForm() {
                                                             <KeyboardDatePicker
                                                                 disableToolbar
                                                                 variant="inline"
-                                                                format="dd/MM/yyyy"
+                                                                format="yyyy/MM/dd"
+                                                                views={["year", "month", "date"]}
+                                                                openTo="year"
+                                                                initialFocusedDate="1956,05,04"
                                                                 className="datePicker removeDate"
                                                                 onClick={dateRemover}
                                                                 margin="normal"
@@ -500,7 +509,10 @@ export default function EligibilityQuestionsForm() {
                                                             <KeyboardDatePicker
                                                                 disableToolbar
                                                                 variant="inline"
-                                                                format="dd/MM/yyyy"
+                                                                format="yyyy/MM/dd"
+                                                                views={["year", "month", "date"]}
+                                                                openTo="year"
+                                                                initialFocusedDate="1956,05,04"
                                                                 className="datePicker removeDate"
                                                                 onClick={dateRemover}
                                                                 margin="normal"
@@ -533,7 +545,10 @@ export default function EligibilityQuestionsForm() {
                                                             <KeyboardDatePicker
                                                                 disableToolbar
                                                                 variant="inline"
-                                                                format="dd/MM/yyyy"
+                                                                format="yyyy/MM/dd"
+                                                                views={["year", "month", "date"]}
+                                                                openTo="year"
+                                                                initialFocusedDate="1956,05,04"
                                                                 className="datePicker removeDate"
                                                                 onClick={dateRemover}
                                                                 margin="normal"
@@ -566,7 +581,10 @@ export default function EligibilityQuestionsForm() {
                                                             <KeyboardDatePicker
                                                                 disableToolbar
                                                                 variant="inline"
-                                                                format="dd/MM/yyyy"
+                                                                format="yyyy/MM/dd"
+                                                                views={["year", "month", "date"]}
+                                                                openTo="year"
+                                                                initialFocusedDate="1956,05,04"
                                                                 className="datePicker removeDate"
                                                                 onClick={dateRemover}
                                                                 margin="normal"
@@ -599,7 +617,10 @@ export default function EligibilityQuestionsForm() {
                                                             <KeyboardDatePicker
                                                                 disableToolbar
                                                                 variant="inline"
-                                                                format="dd/MM/yyyy"
+                                                                format="yyyy/MM/dd"
+                                                                views={["year", "month", "date"]}
+                                                                openTo="year"
+                                                                initialFocusedDate="1956,05,04"
                                                                 className="datePicker removeDate"
                                                                 onClick={dateRemover}
                                                                 margin="normal"
@@ -632,7 +653,10 @@ export default function EligibilityQuestionsForm() {
                                                             <KeyboardDatePicker
                                                                 disableToolbar
                                                                 variant="inline"
-                                                                format="dd/MM/yyyy"
+                                                                format="yyyy/MM/dd"
+                                                                views={["year", "month", "date"]}
+                                                                openTo="year"
+                                                                initialFocusedDate="1956,05,04"
                                                                 className="datePicker removeDate"
                                                                 onClick={dateRemover}
                                                                 margin="normal"
@@ -665,7 +689,10 @@ export default function EligibilityQuestionsForm() {
                                                             <KeyboardDatePicker
                                                                 disableToolbar
                                                                 variant="inline"
-                                                                format="dd/MM/yyyy"
+                                                                format="yyyy/MM/dd"
+                                                                views={["year", "month", "date"]}
+                                                                openTo="year"
+                                                                initialFocusedDate="1956,05,04"
                                                                 className="datePicker removeDate"
                                                                 onClick={dateRemover}
                                                                 margin="normal"
@@ -698,7 +725,10 @@ export default function EligibilityQuestionsForm() {
                                                             <KeyboardDatePicker
                                                                 disableToolbar
                                                                 variant="inline"
-                                                                format="dd/MM/yyyy"
+                                                                format="yyyy/MM/dd"
+                                                                views={["year", "month", "date"]}
+                                                                openTo="year"
+                                                                initialFocusedDate="1956,05,04"
                                                                 className="datePicker removeDate"
                                                                 onClick={dateRemover}
                                                                 margin="normal"
@@ -731,7 +761,10 @@ export default function EligibilityQuestionsForm() {
                                                             <KeyboardDatePicker
                                                                 disableToolbar
                                                                 variant="inline"
-                                                                format="dd/MM/yyyy"
+                                                                format="yyyy/MM/dd"
+                                                                views={["year", "month", "date"]}
+                                                                openTo="year"
+                                                                initialFocusedDate="1956,05,04"
                                                                 className="datePicker removeDate"
                                                                 onClick={dateRemover}
                                                                 margin="normal"
@@ -784,7 +817,10 @@ export default function EligibilityQuestionsForm() {
                                                             <KeyboardDatePicker
                                                                 disableToolbar
                                                                 variant="inline"
-                                                                format="dd/MM/yyyy"
+                                                                format="yyyy/MM/dd"
+                                                                views={["year", "month", "date"]}
+                                                                openTo="year"
+                                                                initialFocusedDate="1956,05,04"
                                                                 className="datePicker removeDate"
                                                                 onClick={dateRemover}
                                                                 margin="normal"

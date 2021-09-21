@@ -104,7 +104,10 @@ export default function MedicareInformationForm() {
                                             <KeyboardDatePicker
                                                 disableToolbar
                                                 variant="inline"
-                                                format="dd/MM/yyyy"
+                                                format="yyyy/MM/dd"
+                                                views={["year", "month", "date"]}
+                                                openTo="year"
+                                                initialFocusedDate="1956,05,04"
                                                 margin="normal"
                                                 style={{ width: '100%' }}
                                                 id="date-picker-inline"
@@ -127,7 +130,10 @@ export default function MedicareInformationForm() {
                                             <KeyboardDatePicker
                                                 disableToolbar
                                                 variant="inline"
-                                                format="dd/MM/yyyy"
+                                                format="yyyy/MM/dd"
+                                                views={["year", "month", "date"]}
+                                                openTo="year"
+                                                initialFocusedDate="1956,05,04"
                                                 margin="normal"
                                                 style={{ width: '100%' }}
                                                 id="date-picker-inline"

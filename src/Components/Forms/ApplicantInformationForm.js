@@ -21,6 +21,7 @@ import { ApplicantInformation } from '../../Store/Actions/applicantAction';
 import * as yup from 'yup';
 import { applicantInformationSheema } from '../../Helpers/Validator/validator';
 import { useHistory, useParams, useLocation } from "react-router";
+import { yearsToMonths } from "date-fns";
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -159,7 +160,10 @@ export default function ApplicantInformationForm(props) {
                                     <KeyboardDatePicker
                                         disableToolbar
                                         variant="inline"
-                                        format="dd/MM/yyyy"
+                                        format="yyyy/MM/dd"
+                                        views={["year", "month", "date"]}
+                                        openTo="year"
+                                        initialFocusedDate="1956,05,04"
                                         margin="normal"
                                         id="date-picker-inline"
                                         placeholder="DD/MM/YYYY"
